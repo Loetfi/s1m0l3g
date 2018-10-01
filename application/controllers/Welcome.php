@@ -22,7 +22,8 @@ class Welcome extends CI_Controller {
 	{
 		// $this->load->view('welcome_message');
 		$data = array(
-			'title' => 'Template' 
+			'title' => 'Template' ,
+			'page'	=> 'template/page'
 		);
 		
 		$this->load->view('template/header', $data, FALSE);
