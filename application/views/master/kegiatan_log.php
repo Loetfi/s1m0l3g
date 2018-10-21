@@ -59,39 +59,58 @@
 				</div>
 				<!-- /.box-header -->
 				
-				<form action="#" method="POST" id="addLogKegiatanForm" class="form-horizontal">
-					<input type="hidden" id="id_keg" value="<?php echo @$detail['id_keg']; ?>">
+				<form action="<?php echo site_url('kegiatan/addLogProcess'); ?>" method="POST" id="addLogKegiatanForm" class="form-horizontal" enctype="multipart/form-data" target="_blank">
+					<input type="hidden" name="id_keg" id="id_keg" value="<?php echo @$detail['id_keg']; ?>">
 					<div class="box-body">
 						<div class="row">
 							<div class="col-sm-6">
 								<div class="form-group">
 									<label for="judul_kegiatan" class="col-sm-4 control-label">judul_kegiatan</label>
 									<div class="col-sm-8">
-										<input type="text" class="form-control" id="judul_kegiatan" placeholder="judul_kegiatan" required>
+										<textarea name="judul_kegiatan" class="form-control" id="judul_kegiatan" placeholder="judul_kegiatan" required></textarea>
 									</div>
 								</div>
 								<div class="form-group">
 									<label for="hasil_kegiatan" class="col-sm-4 control-label">hasil_kegiatan</label>
 									<div class="col-sm-8">
-										<textarea class="form-control" id="hasil_kegiatan" placeholder="hasil_kegiatan" required></textarea>
+										<textarea name="hasil_kegiatan" class="form-control" id="hasil_kegiatan" placeholder="hasil_kegiatan" required></textarea>
 									</div>
 								</div>
 								<div class="form-group">
 									<label for="tanggal" class="col-sm-4 control-label">tanggal</label>
 									<div class="col-sm-8">
-										<input type="date" class="form-control" id="tanggal" placeholder="tanggal" required>
+										<div class="input-group date">
+											<div class="input-group-addon">
+												<i class="fa fa-calendar"></i>
+											</div>
+											<input type="text" name="tanggal" class="form-control pull-right" id="datepicker">
+										</div>
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="tanggal" class="col-sm-4 control-label">Waktu</label>
+									<div class="col-sm-8">
+										<div class="input-group date">
+											<div class="input-group-addon">
+												<i class="fa fa-clock-o"></i>
+											</div>
+											<input type="text" name="waktu" class="form-control" id="timepicker">
+										</div>
 									</div>
 								</div>
 								<div class="form-group">
 									<label for="lokasi" class="col-sm-4 control-label">lokasi</label>
 									<div class="col-sm-8">
-										<input type="text" class="form-control" id="lokasi" placeholder="lokasi" required>
+										<input type="text" name="lokasi" class="form-control" id="lokasi" placeholder="lokasi" required>
 									</div>
 								</div>
 								<div class="form-group">
 									<label for="file_pendukung" class="col-sm-4 control-label">file_pendukung</label>
 									<div class="col-sm-8">
-										<input type="file" name="uploadfile[]" class="form-control" id="file_pendukung" placeholder="file_pendukung">
+										<input type="file" name="uploadfile[]" class="form-control" placeholder="file_pendukung">
+										<input type="file" name="uploadfile[]" class="form-control" placeholder="file_pendukung">
+										<input type="file" name="uploadfile[]" class="form-control" placeholder="file_pendukung">
+										<input type="file" name="uploadfile[]" class="form-control" placeholder="file_pendukung">
 									</div>
 								</div>
 							</div>
@@ -102,16 +121,16 @@
 										<th>Nama Peserta</th>
 									</tr>
 									<tr>
-										<td><input type="text" name="nama_peserta[]" class="form-control" placeholder="nama jabatan"></td>
-										<td><input type="text" name="jabatan[]" class="form-control" placeholder="nama pserta"></td>
+										<td><input type="text" name="jabatan[]" class="form-control" placeholder="nama jabatan"></td>
+										<td><input type="text" name="nama_peserta[]" class="form-control" placeholder="nama peserta"></td>
 									</tr>
 									<tr>
-										<td><input type="text" name="nama_peserta[]" class="form-control" placeholder="nama jabatan"></td>
-										<td><input type="text" name="jabatan[]" class="form-control" placeholder="nama pserta"></td>
+										<td><input type="text" name="jabatan[]" class="form-control" placeholder="nama jabatan"></td>
+										<td><input type="text" name="nama_peserta[]" class="form-control" placeholder="nama peserta"></td>
 									</tr>
 									<tr>
-										<td><input type="text" name="nama_peserta[]" class="form-control" placeholder="nama jabatan"></td>
-										<td><input type="text" name="jabatan[]" class="form-control" placeholder="nama pserta"></td>
+										<td><input type="text" name="jabatan[]" class="form-control" placeholder="nama jabatan"></td>
+										<td><input type="text" name="nama_peserta[]" class="form-control" placeholder="nama peserta"></td>
 									</tr>
 								</table>
 							</div>

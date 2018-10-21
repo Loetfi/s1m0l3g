@@ -63,9 +63,28 @@ class Kegiatan_model extends CI_Model {
 		return $resutl;
 	}
 	
+	function insertKegiatanLog($post){
+		$query = $this->db->insert('kegiatan_log', $post);
+		if ($query) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	function insertKegiatanAnggota($post){
+		$query = $this->db->insert('kegiatan_anggota', $post);
+		if ($query) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
 	function logKegiatan($idKeg){
 		$sql = "select
-			id_keg_target
+			id_log
+			,id_keg_target
 			,tanggal
 			,lokasi
 			,judul_kegiatan
@@ -75,11 +94,22 @@ class Kegiatan_model extends CI_Model {
 			,status
 			,cdate
 			,mdate
-		FROM `kegiatan_log`
-		WHERE id_keg_target IN (
-			select id_keg_target from kegiatan_target where id_keg = 1
+		FROM kegiatan_log
+		where id_keg = $idKeg
+		order by tanggal DESC
+		";
+		$resutl = $this->db->query($sql)->result_array();
+		return $resutl;
+	}
+	function logAnggota($idKeg){
+		$sql = "select
+			id_log
+			,nama_peserta
+			,jabatan
+		FROM kegiatan_anggota
+		WHERE id_log IN (
+			select id_log from kegiatan_log where id_keg = $idKeg
 		)
-		order by tahun desc, id_target desc
 		";
 		$resutl = $this->db->query($sql)->result_array();
 		return $resutl;

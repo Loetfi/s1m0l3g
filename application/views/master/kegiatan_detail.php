@@ -89,9 +89,44 @@
 		<div class="col-md-12">
 			<!-- The time line -->
 			<ul class="timeline">
+				<?php foreach($allLogKegiatan as $row){ ?>
+				<li class="time-label">
+					<span class="bg-red">
+						<i class="fa fa-calendar"></i> <?php echo $row['tanggal']; ?><br>
+					</span>
+				</li>
+				<li>
+					<i class="fa fa-envelope bg-blue"></i>
+					<div class="timeline-item">
+						<span class="time"><i class="fa fa-clock-o"></i> <?php echo $row['waktu']; ?></span>
+						<span class="time"><i class="fa fa-map-marker"></i> <?php echo $row['lokasi']; ?></span>
+
+						<h3 class="timeline-header"><a href="#"><?php echo $row['judul_kegiatan']; ?></a></h3>
+
+						<div class="timeline-body"><?php echo $row['hasil_kegiatan']; ?></div>
+						<div class="timeline-footer">
+							<?php foreach($row['file'] as $rowFile){ ?>
+							<a href="<?php echo site_url('kegiatan/downloadFile/'.@$detail['id_keg'].'/'.$rowFile['namaFile']); ?>" class="btn btn-info btn-xs">
+								<i class="fa fa-cloud-download"></i> <?php echo $rowFile['namaFileAsli']; ?>
+							</a>
+							<?php } ?>
+						</div>
+					</div>
+				</li>
+				<li>
+					<i class="fa fa-user bg-aqua"></i>
+					<div class="timeline-item">
+						<h3 class="timeline-header no-border">
+							<?php foreach($allLogAnggota[$row['id_log']] as $anggota){ ?>
+							<?php echo $anggota['jabatan']; ?>: <a href="#"><?php echo $anggota['nama_peserta']; ?></a><br>
+							<?php } ?>
+						</h3>
+					</div>
+				</li>
+				<?php } ?>
 				<li class="time-label">
 							<span class="bg-red">
-								10 Oct. 2018
+								<i class="fa fa-calendar"></i> 10 Oct. 2018<br>
 							</span>
 				</li>
 				<li>
@@ -99,8 +134,9 @@
 
 					<div class="timeline-item">
 						<span class="time"><i class="fa fa-clock-o"></i> 12:05</span>
+						<span class="time"><i class="fa fa-map-marker"></i> Jakarta</span>
 
-						<h3 class="timeline-header"><a href="#">Judul Kegiatan</a>, lokasi: jakarta</h3>
+						<h3 class="timeline-header"><a href="#">Judul Kegiatan Judul Kegiatan Judul Kegiatan Judul Kegiatan Judul Kegiatan Judul Kegiatan Judul Kegiatan Judul Kegiatan Judul Kegiatan Judul Kegiatan Judul Kegiatan Judul Kegiatan Judul Kegiatan Judul Kegiatan</a></h3>
 
 						<div class="timeline-body">
 							Etsy doostang zoodles disqus groupon greplin oooj voxy zoodles,

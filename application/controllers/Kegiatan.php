@@ -94,6 +94,49 @@ class Kegiatan extends CI_Controller {
 		$data['detail'] = $this->keg->detail($idKeg);
 		$data['logTarget'] = $this->keg->logTarget($idKeg);
 		
+		$idxLog = 0;
+		$arrIdLog = array();
+		$logKegiatan = $this->keg->logKegiatan($idKeg);
+		foreach($logKegiatan as $row){
+			$id_log = $row['id_log'];
+			if(!in_array($id_log, $arrIdLog))
+				$arrIdLog[] = $id_log;
+			
+			$tanggal = date('d M Y', strtotime($row['tanggal']));
+			$waktu = date('H:i:s', strtotime($row['tanggal']));
+			
+			$file_nameasli = explode(';',$row['file_asli']);
+			$file_pendukung = explode(';',$row['file_pendukung']);
+			for($i=0; $i<count($file_pendukung) -1; $i++){ 
+				$namaFile = $file_pendukung[$i]; 
+				$namaFileAsli = $file_nameasli[$i]; 
+				
+				$file[$i]['namaFile'] = $namaFile;
+				$file[$i]['namaFileAsli'] = $namaFileAsli;
+			}
+			
+			$allLogKegiatan[$idxLog] = $row;
+			$allLogKegiatan[$idxLog]['tanggal'] = $tanggal;
+			$allLogKegiatan[$idxLog]['waktu'] = $waktu;
+			$allLogKegiatan[$idxLog]['file'] = $file;
+			$idxLog++;
+		}
+		$data['allLogKegiatan'] = @$allLogKegiatan;
+		// print_r($allLogKegiatan);
+		
+		$idxLog = 0;
+		$arrIdLog = array();
+		$logAnggota = $this->keg->logAnggota($idKeg);
+		foreach($logAnggota as $row){
+			$allLogAnggota[$id_log][] = array(
+				'jabatan' => $row['jabatan'],
+				'nama_peserta' => $row['nama_peserta'],
+			);
+		}
+		$data['allLogAnggota'] = @$allLogAnggota;
+		// print_r($allLogAnggota);
+		
+		// die();
 		$this->load->view('template/header', $data, FALSE);
 		$this->load->view('template/content', $data, FALSE);
 		$this->load->view('template/footer', $data, FALSE);
@@ -111,6 +154,97 @@ class Kegiatan extends CI_Controller {
 		$this->load->view('template/header', $data, FALSE);
 		$this->load->view('template/content', $data, FALSE);
 		$this->load->view('template/footer', $data, FALSE);
+	}
+	
+	function addLogProcess(){
+		$cdate = time();
+		
+		$id_keg = @$_POST['id_keg'];
+		$judul_kegiatan = @$_POST['judul_kegiatan'];
+		$hasil_kegiatan = @$_POST['hasil_kegiatan'];
+		$lokasi = @$_POST['lokasi'];
+		$tanggal = @$_POST['tanggal'];
+		$waktu = @$_POST['waktu'];
+		$YmdHis = date('Y-m-d H:i:s', strtotime($tanggal.' '.$waktu));
+		
+		$namaFolder = 'Kegiatan_'.$id_keg;
+		mkdir("uploads/".$namaFolder, 0755, true);
+		
+		## UNTUK UPLOAD FILE 
+		$config = array();
+		$config['upload_path'] = './uploads/'.$namaFolder;
+		$config['allowed_types'] = '*';
+		$config['max_size']      = '0';
+		$config['overwrite']     = true;
+		
+		$files = $_FILES;
+		for($i=0; $i < count($files['uploadfile']['name']); $i++){
+			if ($files['uploadfile']['error'][$i] == 0){
+				$_FILES['userfile']['name']= $files['uploadfile']['name'][$i];
+				$_FILES['userfile']['type']= $files['uploadfile']['type'][$i];
+				$_FILES['userfile']['tmp_name']= $files['uploadfile']['tmp_name'][$i];
+				$_FILES['userfile']['error']= $files['uploadfile']['error'][$i];
+				$_FILES['userfile']['size']= $files['uploadfile']['size'][$i];
+				
+				$ext = pathinfo($_FILES['userfile']['name'], PATHINFO_EXTENSION);
+				$cekPhoto = $_FILES['userfile']['tmp_name'];
+				
+				## random text
+				$seed = str_split('abcdefghijklmnopqrstuvwxyz'
+					.'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+				 .'0123456789'); // and any other characters
+				shuffle($seed);
+				$rand = '';
+				foreach (array_rand($seed, 10) as $k){
+					$rand .= $seed[$k];
+				}
+				$file_name= $cdate.'_'.$rand;
+				$config['file_name'] = $file_name;
+				$uploadFileName = $config['file_name'].".".$ext;
+				$this->load->library('upload', $config);
+				
+				$this->upload->initialize($config);
+				if (!$this->upload->do_upload()){
+					$salah = $this->upload->display_errors();
+					print_r($salah);
+				} else {
+					@$file_pendukung .= $uploadFileName.';';
+					@$file_nameasli .= $_FILES['userfile']['name'].';';
+				}
+			}
+		}
+		
+		
+		$asd = '';
+		$dataInsert = array(
+			'id_keg' => $id_keg,
+			'tanggal' => $YmdHis,
+			'lokasi' => $lokasi,
+			'judul_kegiatan' => $judul_kegiatan,
+			'hasil_kegiatan' => $hasil_kegiatan,
+			'file_pendukung' => $file_pendukung,
+			'file_asli' => $file_nameasli,
+			'status' => 'Done',
+			'cdate' => $cdate,
+		);
+		if($this->keg->insertKegiatanLog($dataInsert)) {
+			$id_log = $this->db->insert_id();
+			$nama_peserta = @$_POST['nama_peserta'];
+			$jabatan = @$_POST['jabatan'];
+			for($i=0; $i<count($nama_peserta); $i++){
+				$kegiatan_anggota = array(
+					'id_log' => $id_log,
+					'nama_peserta' => $nama_peserta[$i],
+					'jabatan' => $jabatan[$i],
+					'status' => 'Done',
+					'cdate' => $cdate,
+				);
+				$this->keg->insertKegiatanAnggota($kegiatan_anggota);
+			}
+		}
+		
+		print_r(@$dataInsert);
+		print_r(@$kegiatan_anggota);
 	}
 }
 

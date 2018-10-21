@@ -40,6 +40,14 @@ $(function(){
 		return false;
 	});
 	
+	$('#datepicker').datepicker({
+		autoclose: true
+	});
+	$('#timepicker').timepicker({
+		timeFormat: 'HH:mm:ss',
+		interval: 15,
+		showInputs: false,
+	});
 	
 });
 </script>
