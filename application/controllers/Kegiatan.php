@@ -20,6 +20,8 @@ class Kegiatan extends CI_Controller {
 		);
 		
 		$data['tahun'] = $this->keg->getTahunKegiatan();
+		$data['getAllKegiatan'] = $this->keg->getAllKegiatan();
+		// print_r($data['getAllKegiatan']); die();
 		
 		$this->load->view('template/header', $data, FALSE);
 		$this->load->view('template/content', $data, FALSE);

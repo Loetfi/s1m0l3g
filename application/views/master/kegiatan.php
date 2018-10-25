@@ -14,7 +14,7 @@
 		<div class="col-xs-12">
 			<div class="box">
 				<div class="box-header">
-					<div class="pull-left">
+					<!-- div class="pull-left">
 						<div class="form-group">
 							<label class="col-md-3 control-label"> Tahun </label>
 							<div class="col-md-5">
@@ -25,7 +25,7 @@
 								</select>
 							</div>
 						</div>
-					</div>
+					</div -->
 					
 					<div class="box-tools pull-right">
 						<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
@@ -34,6 +34,7 @@
 				<!-- /.box-header -->
 				<div class="box-body">
 					<table id="thisDataTable" class="table table-bordered table-hover">
+						<!--
 						<thead>
 						<tr>
 							<th>Rendering engine</th>
@@ -461,6 +462,38 @@
 							<th>CSS grade</th>
 						</tr>
 						</tfoot>
+						-->
+						<thead>
+							<tr>
+								<th>ID</th>
+								<th>Tahun</th>
+								<th>Nama Kegiatan</th>
+								<th>Target</th>
+								<th>Wkt Input</th>
+								<th>Wkt Update</th>
+								<th>Wkt Target</th>
+								<th>Status</th>
+								<th>Aksi</th>
+							</tr>
+						</thead>
+						<tbody>
+							<?php foreach($getAllKegiatan as $row){ ?>
+							<tr>
+								<td><?php echo @$row['id_keg']; ?></td>
+								<td><?php echo @$row['tahun']; ?></td>
+								<td><?php echo @$row['nama_keg']; ?></td>
+								<td><?php echo @$row['tahun_pengajuan'].' B'.str_pad($row['id_target'],2,'0',STR_PAD_LEFT); ?></td>
+								<td><?php echo @$row['cdate']==''?'':date('Y-m-d H:i',@$row['cdate']); ?></td>
+								<td><?php echo @$row['mdate']==''?'':date('Y-m-d H:i',@$row['mdate']); ?></td>
+								<td><?php echo @$row['t_cdate']==''?'':date('Y-m-d H:i',@$row['t_cdate']); ?></td>
+								<td><?php echo @$row['status']; ?></td>
+								<td>
+									<a href="<?php echo site_url('kegiatan/detail/'.$row['id_keg']); ?>" class="btn btn-xs btn-info" title="Detail"><i class="fa fa-eye"></i></a>
+									<a href="<?php echo site_url('kegiatan/addlog/'.$row['id_keg']); ?>" class="btn btn-xs btn-success" title="Tambah Log"><i class="fa fa-plus"></i></a>
+								</td>
+							</tr>
+							<?php } ?>
+						</tbody>
 					</table>
 				</div>
 				<!-- /.box-body -->

@@ -8,6 +8,23 @@ class Kegiatan_model extends CI_Model {
 		$resutl = $this->db->query($sql)->result_array();
 		return $resutl;
 	}
+	function getAllKegiatan(){
+		$sql = "SELECT
+			k.*, 
+			t.id_target,
+			t.tahun AS tahun_pengajuan,
+			t.cdate AS t_cdate
+		FROM
+			kegiatan k
+		LEFT JOIN kegiatan_target t 
+			ON k.id_keg = t.id_keg
+			AND t. STATUS = 'aktif'
+		ORDER BY
+			t.tahun DESC,
+			k.id_keg DESC";
+		$resutl = $this->db->query($sql)->result_array();
+		return $resutl;
+	}
 	
 	function insertKegiatan($post){
 		$query = $this->db->insert('kegiatan', $post);

@@ -105,6 +105,15 @@
 									</div>
 								</div>
 								<div class="form-group">
+									<label for="status" class="col-sm-4 control-label">Status Kegiatan</label>
+									<div class="col-sm-8">
+										<select name="status" class="form-control" id="status" placeholder="status" required>
+											<option value="Aktif">Aktif</option>
+											<option value="Selesai">Selesai</option>
+										</select>
+									</div>
+								</div>
+								<div class="form-group">
 									<label for="file_pendukung" class="col-sm-4 control-label">file_pendukung</label>
 									<div class="col-sm-8">
 										<input type="file" name="uploadfile[]" class="form-control" placeholder="file_pendukung">
