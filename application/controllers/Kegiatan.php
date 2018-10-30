@@ -75,6 +75,9 @@ class Kegiatan extends CI_Controller {
 					'id_keg' => $id_keg,
 				)
 			);
+			
+			$namaFolder = 'Kegiatan_'.$id_keg;
+			mkdir("uploads/".$namaFolder, 0755, true);
 		}
 		else {
 			$data = array(
@@ -83,6 +86,8 @@ class Kegiatan extends CI_Controller {
 				'data' => array()
 			);
 		}
+		
+		
 		
 		echo json_encode($data);
 	}
@@ -124,19 +129,20 @@ class Kegiatan extends CI_Controller {
 			$idxLog++;
 		}
 		$data['allLogKegiatan'] = @$allLogKegiatan;
-		// print_r($allLogKegiatan);
+		// print_r($allLogKegiatan); die();
 		
 		$idxLog = 0;
 		$arrIdLog = array();
 		$logAnggota = $this->keg->logAnggota($idKeg);
 		foreach($logAnggota as $row){
+			$id_log = $row['id_log'];
 			$allLogAnggota[$id_log][] = array(
 				'jabatan' => $row['jabatan'],
 				'nama_peserta' => $row['nama_peserta'],
 			);
 		}
 		$data['allLogAnggota'] = @$allLogAnggota;
-		// print_r($allLogAnggota);
+		// print_r($allLogAnggota); die();
 		
 		// die();
 		$this->load->view('template/header', $data, FALSE);
@@ -170,7 +176,6 @@ class Kegiatan extends CI_Controller {
 		$YmdHis = date('Y-m-d H:i:s', strtotime($tanggal.' '.$waktu));
 		
 		$namaFolder = 'Kegiatan_'.$id_keg;
-		mkdir("uploads/".$namaFolder, 0755, true);
 		
 		## UNTUK UPLOAD FILE 
 		$config = array();
@@ -230,24 +235,45 @@ class Kegiatan extends CI_Controller {
 			'cdate' => $cdate,
 		);
 		if($this->keg->insertKegiatanLog($dataInsert)) {
+			
+			// insert anggota
 			$id_log = $this->db->insert_id();
 			$nama_peserta = @$_POST['nama_peserta'];
 			$jabatan = @$_POST['jabatan'];
 			for($i=0; $i<count($nama_peserta); $i++){
 				$kegiatan_anggota = array(
 					'id_log' => $id_log,
-					'nama_peserta' => $nama_peserta[$i],
-					'jabatan' => $jabatan[$i],
+					'nama_peserta' => @$nama_peserta[$i],
+					'jabatan' => @$jabatan[$i],
 					'status' => 'Done',
 					'cdate' => $cdate,
 				);
-				$this->keg->insertKegiatanAnggota($kegiatan_anggota);
+				if ($nama_peserta[$i] != '' && $jabatan[$i] != '')
+					$this->keg->insertKegiatanAnggota($kegiatan_anggota);
 			}
+			
+			// update kegiatan
+			$this->db->update('kegiatan', array('mdate' => $cdate), array('id_keg' => $id_keg));
 		}
 		
-		print_r(@$dataInsert);
-		print_r(@$kegiatan_anggota);
+		redirect('kegiatan/detail/'.$id_keg,'refresh');
 	}
+	
+	function edit($idKeg){
+		$data = array(
+			'title' => 'Edit Kegiatan' ,
+			'page'	=> 'master/kegiatan_edit'
+		);
+		
+		$data['detail'] = $this->keg->detail($idKeg);
+		$data['logTarget'] = $this->keg->logTarget($idKeg);
+		
+		$this->load->view('template/header', $data, FALSE);
+		$this->load->view('template/content', $data, FALSE);
+		$this->load->view('template/footer', $data, FALSE);
+		
+	}
+	
 }
 
 /* End of file Kegiatan.php */
