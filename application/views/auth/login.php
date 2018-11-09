@@ -25,8 +25,8 @@
         </div>
         <div class="row"> 
           <!-- /.col -->
-          <div class="col-xs-4">
-            <button type="submit" class="btn btn-warning btn-block btn-flat">Sign In</button>
+          <div class="col-xs-12">
+            <button type="submit" class="btn btn-success btn-block">Sign In</button>
           </div>
           <!-- /.col -->
         </div>
