@@ -14,7 +14,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		public function index()
 		{ 
 			// print_r($_SESSION);
-			$ada = $this->session->userdata('username') ? redirect('','refresh') : '';
+			$ada = $this->session->userdata('username') ? redirect('welcome','refresh') : '';
 			$data = array(
 				'title' => 'Login',
 				'message'	=> $this->session->flashdata('message')
@@ -36,10 +36,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 					'password'	=> !empty($this->input->post('password')) ? $this->input->post('password') : 0
 				);
 
+				// print_r($$this->input->post());die();
 				if (!empty($this->session->userdata('referrer_url'))) {
-					$referer = $this->session->userdata('referrer_url');
+					// $referer = $this->session->userdata('referrer_url');
+					redirect('welcome','refresh');
 				} else { 
-					$referer = '/';
+					$referer = 'welcome/';
 				}
 
 				($this->auth->login($parameter)) ? redirect($referer,'refresh') : redirect('login','refresh');

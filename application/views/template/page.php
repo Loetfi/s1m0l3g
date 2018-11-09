@@ -22,6 +22,7 @@
             </div>
             <!-- /.box-header -->
             <div class="box-body">
+              <a href="" class="btn btn-success">test</a>
               <table id="example2" class="table table-bordered table-hover">
                 <thead>
                 <tr>

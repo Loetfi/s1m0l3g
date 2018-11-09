@@ -68,5 +68,5 @@
     })
   </script>
 </head>
-<body class="hold-transition skin-yellow sidebar-mini">
+<body class="hold-transition skin-green sidebar-mini">
 
