@@ -21,7 +21,7 @@ class Welcome extends CI_Controller {
 	public function index()
 	{
 		$data = array(
-			'title' => 'Template' ,
+			'title' => 'Dasboard' ,
 			'page'	=> 'template/page'
 		);
 		
