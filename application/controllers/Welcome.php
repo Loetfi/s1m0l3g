@@ -25,8 +25,8 @@ class Welcome extends CI_Controller {
 			'page'	=> 'template/page'
 		);
 		
-		$this->load->view('template/header', $data, FALSE);
-		$this->load->view('template/content', $data, FALSE);
-		$this->load->view('template/footer', $data, FALSE);
+		// $this->load->view('template/header', $data, FALSE);
+		// $this->load->view('template/content', $data, FALSE);
+		$this->load->view('front', $data, FALSE);
 	}
 }
