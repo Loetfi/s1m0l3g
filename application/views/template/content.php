@@ -49,7 +49,7 @@
     </nav>
   </header>
   <!-- Left side column. contains the logo and sidebar -->
-    
+  
   <?php $this->load->view('template/sidebar'); ?>
 
 <!-- Content Wrapper. Contains page content -->
