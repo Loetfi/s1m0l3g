@@ -132,6 +132,11 @@ class Kegiatan_model extends CI_Model {
 		return $resutl;
 	}
 	
+	function editKegiatan($post, $where){
+		$this->db->where($where);
+		return $query = $this->db->update('kegiatan', $post);
+	}
+	
 }
 
 /* End of file Auth_model.php */

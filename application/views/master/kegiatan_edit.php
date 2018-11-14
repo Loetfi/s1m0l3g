@@ -19,6 +19,7 @@
 				</div>
 				<!-- /.box-header -->
 				<div class="box-body">
+					<input type="hidden" name="id_keg" id="id_keg" value="<?php echo @$detail['id_keg']; ?>">
 					<table class="table table-bordered">
 						<tr>
 							<th width="200px">nama_keg</th>
@@ -95,37 +96,27 @@
 				</div>
 				<!-- /.box-header -->
 				
-				<form action="<?php echo site_url('kegiatan/addLogProcess'); ?>" method="POST" id="addLogKegiatanForm" class="form-horizontal" enctype="multipart/form-data" target="_blank">
-					<input type="hidden" name="id_keg" id="id_keg" value="<?php echo @$detail['id_keg']; ?>">
+				<form action="#<?php echo site_url('kegiatan/editProcess'); ?>" method="POST" id="editKegiatanForm" class="form-horizontal" enctype="multipart/form-data" target="_blank">
 					<div class="box-body">
 						<div class="form-group">
-							<label for="status" class="col-sm-4 control-label">Status Kegiatan</label>
+							<label for="nama_keg" class="col-sm-4 control-label">nama_keg</label>
 							<div class="col-sm-8">
-								<select name="status" class="form-control" id="status" placeholder="status" required>
-									<option value="Aktif">Aktif</option>
-									<option value="Inaktif">Inaktif</option>
-									<option value="Selesai">Selesai</option>
-								</select>
+								<input type="text" class="form-control" id="nama_keg" placeholder="nama_keg" value="<?php echo @$detail['nama_keg']; ?>" required>
 							</div>
 						</div>
 						
 						<div class="form-group">
-							<label for="" class="col-sm-4 control-label">Target</label>
-							<div class="col-sm-4">
-								<select name="tahun_target" class="form-control" id="tahun_target" required>
-									<?php for($i=date('Y')+1; $i>=date('Y'); $i--){ ?>
-									<option value="<?php echo $i; ?>"><?php echo $i; ?></option>
-									<?php } ?>
-								</select>
-							</div>
-							<div class="col-sm-4">
-								<select name="bulan_target" class="form-control" id="bulan_target" required>
-									<?php for($i=1; $i<=12; $i++){ ?>
-									<option value="<?php echo $i; ?>"><?php echo 'B'.str_pad($i,2,'0',STR_PAD_LEFT); ?></option>
-									<?php } ?>
+							<label for="status" class="col-sm-4 control-label">Status Kegiatan</label>
+							<div class="col-sm-8">
+								<select name="status" class="form-control" id="status" placeholder="status" required>
+									<option value="">-Pilih-</option>
+									<option value="Aktif" <?php echo @$detail['status'] == 'Aktif' ? 'Selected' : ''; ?>>Aktif</option>
+									<option value="Inaktif" <?php echo @$detail['status'] == 'Inaktif' ? 'Selected' : ''; ?>>Inaktif</option>
+									<option value="Selesai" <?php echo @$detail['status'] == 'Selesai' ? 'Selected' : ''; ?>>Selesai</option>
 								</select>
 							</div>
 						</div>
+						
 					</div>
 					<!-- /.box-body -->
 					<div class="box-footer">
@@ -150,12 +141,11 @@
 				<!-- /.box-header -->
 				
 				<form action="<?php echo site_url('kegiatan/addLogProcess'); ?>" method="POST" id="addLogKegiatanForm" class="form-horizontal" enctype="multipart/form-data" target="_blank">
-					<input type="hidden" name="id_keg" id="id_keg" value="<?php echo @$detail['id_keg']; ?>">
 					<div class="box-body">
 						<div class="form-group">
 							<label for="status" class="col-sm-4 control-label">Status Kegiatan</label>
 							<div class="col-sm-8">
-								<select name="status" class="form-control" id="status" placeholder="status" required>
+								<select name="status" class="form-control" id="statusLog" placeholder="status" required>
 									<option value="Aktif">Aktif</option>
 									<option value="Inaktif">Inaktif</option>
 									<option value="Selesai">Selesai</option>

@@ -274,6 +274,29 @@ class Kegiatan extends CI_Controller {
 		
 	}
 	
+	function editProcess(){
+		$id_keg = $_POST['id_keg'];
+		$nama_keg = $_POST['nama_keg'];
+		$status = $_POST['status'];
+		$mdate = time();
+		
+		$arrUpdate = array(
+			'nama_keg' => $nama_keg,
+			'status' => $status,
+			'mdate' => $mdate
+		);
+		
+		$this->keg->editKegiatan($arrUpdate, array('id_keg' => $id_keg));
+		
+		$data = array(
+			'status' => 1,
+			'message' => 'Berhasil',
+			'data' => array()
+		);
+			
+		echo json_encode($data);
+	}
+	
 }
 
 /* End of file Kegiatan.php */
