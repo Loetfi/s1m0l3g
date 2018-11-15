@@ -29,7 +29,7 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 </head>
 <!-- ADD THE CLASS layout-top-nav TO REMOVE THE SIDEBAR. -->
-<body class="hold-transition skin-blue layout-top-nav">
+<body class="hold-transition skin-green layout-top-nav">
 <div class="wrapper">
 
   <header class="main-header">
@@ -115,17 +115,89 @@
           <h1>Menjadi bagian dari kegiatan</h1>
           <br>
           <div class="row">
-            <?php for ($i=0; $i < 10; $i++) { ?>
+
             <div class="col-sm-2">
               <div class="panel panel-success">
                 <div class="panel-heading">
                   <a href=""><img src="https://www.esdm.go.id/assets/imagecache/mediaList/xMigas-105.png.pagespeed.ic.-iwD4w2f--.png"></a>
                   <br><br>
-                  <h3 class="panel-title">Ditjen Migas</h3>
+                  <h3 class="panel-title">Ditjen Migas</h3><br>
                 </div> 
               </div>
             </div>
-          <?php } ?>
+
+            <div class="col-sm-2">
+              <div class="panel panel-success">
+                <div class="panel-heading">
+                  <a href=""><img src="https://www.esdm.go.id/assets/imagecache/mediaList/xEBTKE-105.png.pagespeed.ic.9hws-G56Ct.png"></a>
+                  <br><br>
+                  <h3 class="panel-title">Ditjen EBTKE</h3><br>
+                </div> 
+              </div>
+            </div>
+
+             <div class="col-sm-2">
+              <div class="panel panel-success">
+                <div class="panel-heading">
+                  <a href=""><img src="https://www.esdm.go.id/assets/imagecache/mediaList/xGatrik-105px.png.pagespeed.ic.8BDgAiCpQK.png"></a>
+                  <br><br>
+                  <h3 class="panel-title">Ditjen Gatrik</h3><br>
+                </div> 
+              </div>
+            </div>
+
+             <div class="col-sm-2">
+              <div class="panel panel-success">
+                <div class="panel-heading">
+                  <a href=""><img src="https://www.esdm.go.id/assets/imagecache/mediaList/xMinerba-105px.png.pagespeed.ic.1_Ip7w1O_y.png"></a>
+                  <br><br>
+                  <h3 class="panel-title">Ditjen Minerba</h3>
+                  <br>
+                </div> 
+              </div>
+            </div>
+
+             <div class="col-sm-2">
+              <div class="panel panel-success">
+                <div class="panel-heading">
+                  <a href=""><img src="https://www.esdm.go.id/assets/imagecache/mediaList/xItjen.png.pagespeed.ic.Q8VtQCEB1S.png"></a>
+                  <br><br>
+                  <h3 class="panel-title">Inspektorat Jendral</h3>
+                </div> 
+              </div>
+            </div>
+
+            <div class="col-sm-2">
+              <div class="panel panel-success">
+                <div class="panel-heading">
+                  <a href=""><img src="https://www.esdm.go.id/assets/imagecache/mediaList/xGeologi.png.pagespeed.ic.pi_Ev-F5NR.png"></a>
+                  <br><br>
+                  <h3 class="panel-title">Badan Geologi</h3><br>
+                </div> 
+              </div>
+            </div>
+
+            <div class="col-sm-2">
+              <div class="panel panel-success">
+                <div class="panel-heading">
+                  <a href=""><img src="https://www.esdm.go.id/assets/imagecache/mediaList/xLitbang.png.pagespeed.ic.HwlQvnRf9V.png"></a>
+                  <br><br>
+                  <h3 class="panel-title">Badan Litbang</h3>
+                </div> 
+              </div>
+            </div>
+
+            <div class="col-sm-2">
+              <div class="panel panel-success">
+                <div class="panel-heading">
+                  <a href=""><img src="https://www.esdm.go.id/assets/imagecache/mediaList/xBPSDM.png.pagespeed.ic.rI80dnIGB9.png"></a>
+                  <br><br>
+                  <h3 class="panel-title">BPSDM ESDM</h3>
+                </div> 
+              </div>
+            </div>
+
+             
           </div>
         </div> 
       <hr>
