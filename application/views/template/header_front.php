@@ -80,16 +80,16 @@
           proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
         </div>
         <div class="col-sm-4">
-          <form action="" method="POST" role="form">
+          <form action="<?php echo site_url('auth/proses') ?>" method="post">
             <legend>Masuk</legend>
           
             <div class="form-group">
               <label for="">Email</label>
-              <input type="text" class="form-control" id="" placeholder="Input field">
+              <input type="text" class="form-control" id="" placeholder="Email" name="username">
             </div>
             <div class="form-group">
               <label for="">Password</label>
-              <input type="text" class="form-control" id="" placeholder="Input field">
+              <input type="password" class="form-control" id="" placeholder="Password" name="password">
             </div>
           
             

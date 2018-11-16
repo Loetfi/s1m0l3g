@@ -41,7 +41,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 					// $referer = $this->session->userdata('referrer_url');
 					redirect('welcome','refresh');
 				} else { 
-					$referer = 'welcome/';
+					$referer = 'database/';
 				}
 
 				($this->auth->login($parameter)) ? redirect($referer,'refresh') : redirect('login','refresh');
