@@ -10,13 +10,15 @@ class Database extends CI_Controller {
 		$this->load->library('form_validation');
 		$this->load->model('auth_model','auth');
 		$this->load->model('kegiatan_model','keg');
+		$this->load->model('front_model');
 	}
 
 
 	public function index(){
 		$data = array(
-			'title' => 'Database Monitoring Kegiatan' ,
-			'page'	=> 'master/database'
+			'title' => 'Database Monitoring Pemrakarsa' ,
+			'page'	=> 'master/database',
+			'unit'	=> $this->front_model->get_all_unit()
 		);
 		
 		$data['tahun'] = $this->keg->getTahunKegiatan();

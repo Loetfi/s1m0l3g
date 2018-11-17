@@ -10,6 +10,11 @@
     </a>
     <!-- Header Navbar: style can be found in header.less -->
     <nav class="navbar navbar-static-top">
+      <form class="navbar-form navbar-left" role="search">
+        <div class="form-group">
+          <input type="text" class="form-control" id="navbar-search-input" placeholder="Form Pencarian Kegiatan">
+        </div>
+      </form>
       <!-- Sidebar toggle button-->
      <!--  <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
         <span class="sr-only">Toggle navigation</span>
@@ -52,14 +57,14 @@
   
   <?php $this->load->view('template/sidebar'); ?>
 
-<!-- Content Wrapper. Contains page content -->
+  <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
-  <?php
+    <?php
   // echo @$page ? $this->load->view($page) : ''; 
     if (@$page) {
       $this->load->view($page);
     }
-  ?>
+    ?>
   </div>
   <!-- /.content-wrapper -->
   
