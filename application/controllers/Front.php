@@ -10,13 +10,17 @@ class Front extends CI_Controller {
 		$this->load->library('form_validation');
 		$this->load->model('auth_model','auth');
 		$this->load->model('kegiatan_model','keg');
+		$this->load->model('front_model');
 	}
 
 
 	public function index(){
+		$ada = $this->session->userdata('username') ? redirect('database','refresh') : '';
 		$data = array(
 			'title' => 'Database Monitoring Kegiatan' ,
-			'page'	=> 'master/database'
+			'page'	=> 'master/database',
+			'unit'	=> $this->front_model->get_all_unit(),
+			'message'	=> $this->session->flashdata('message')
 		);
 		
 		// $data['tahun'] = $this->keg->getTahunKegiatan();

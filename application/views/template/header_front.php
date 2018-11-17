@@ -15,41 +15,41 @@
   <!-- Theme style -->
   <link rel="stylesheet" href="<?php echo base_url('assets/dist/css/AdminLTE.min.css');?>">
   <!-- AdminLTE Skins. Choose a skin from the css/skins
-       folder instead of downloading all of them to reduce the load. -->
-  <link rel="stylesheet" href="<?php echo base_url('assets/dist/css/skins/_all-skins.min.css');?>">
+   folder instead of downloading all of them to reduce the load. -->
+   <link rel="stylesheet" href="<?php echo base_url('assets/dist/css/skins/_all-skins.min.css');?>">
 
-  <!-- HTML5 Shim and Respond.js');?> IE8 support of HTML5 elements and media queries -->
-  <!-- WARNING: Respond.js');?> doesn't work if you view the page via file:// -->
+   <!-- HTML5 Shim and Respond.js');?> IE8 support of HTML5 elements and media queries -->
+   <!-- WARNING: Respond.js');?> doesn't work if you view the page via file:// -->
   <!--[if lt IE 9]>
   <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js');?>"></script>
   <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js');?>"></script>
-  <![endif]-->
+<![endif]-->
 
-  <!-- Google Font -->
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+<!-- Google Font -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 </head>
 <!-- ADD THE CLASS layout-top-nav TO REMOVE THE SIDEBAR. -->
 <body class="hold-transition skin-green layout-top-nav">
-<div class="wrapper">
+  <div class="wrapper">
 
-  <header class="main-header">
-    <nav class="navbar navbar-static-top">
-      <div class="container">
-        <div class="navbar-header">
-          <a href="<?php echo base_url('assets/index2.html');?>" class="navbar-brand"><b>SIMOLEG KESDM</b></a>
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse">
-            <i class="fa fa-bars"></i>
-          </button>
-        </div>
+    <header class="main-header">
+      <nav class="navbar navbar-static-top">
+        <div class="container">
+          <div class="navbar-header">
+            <a href="<?php echo base_url('assets/index2.html');?>" class="navbar-brand"><b>SIMOLEG KESDM</b></a>
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse">
+              <i class="fa fa-bars"></i>
+            </button>
+          </div>
 
-        <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse pull-left" id="navbar-collapse">
-          
-          <form class="navbar-form navbar-left" role="search">
+          <!-- Collect the nav links, forms, and other content for toggling -->
+          <div class="collapse navbar-collapse pull-left" id="navbar-collapse">
+
+          <!-- <form class="navbar-form navbar-left" role="search">
             <div class="form-group">
               <input type="text" class="form-control" id="navbar-search-input" placeholder="Pencarian Kegiatan">
             </div>
-          </form>
+          </form> -->
           <ul class="nav navbar-nav">
             <li class=""><a href="#">Peraturan Undang - Undang <span class="sr-only">(current)</span></a></li> 
             <li class=""><a href="#">Tentang <span class="sr-only">(current)</span></a></li> 
@@ -73,32 +73,38 @@
         <div class="col-sm-8">
           <h1>Tentang Simoleg</h1>
           <p class="text-muted text-justify">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-          tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-          quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-          consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-          cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+            consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+            cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
           proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
         </div>
         <div class="col-sm-4">
           <form action="<?php echo site_url('auth/proses') ?>" method="post">
             <legend>Masuk</legend>
-          
+
+            <?php 
+            echo $message;
+            echo form_error('username', '<div class="alert alert-danger">', '</div>');
+            echo form_error('password', '<div class="alert alert-danger">', '</div>');
+            ?>
+
             <div class="form-group">
               <label for="">Email</label>
-              <input type="text" class="form-control" id="" placeholder="Email" name="username">
+              <input type="text" class="form-control" id="" placeholder="Email" name="username" required="email">
             </div>
             <div class="form-group">
               <label for="">Password</label>
-              <input type="password" class="form-control" id="" placeholder="Password" name="password">
+              <input type="password" class="form-control" id="" placeholder="Password" name="password" required="">
             </div>
-          
+
             
-          
+
             <button type="submit" class="btn btn-success btn-block">Masuk</button>
           </form>
           
         </div>
-      <hr>
+        <hr>
       </section>
       <!-- /.content -->
     </div>
@@ -116,91 +122,22 @@
           <br>
           <div class="row">
 
-            <div class="col-sm-2">
-              <div class="panel panel-success">
-                <div class="panel-heading">
-                  <a href=""><img src="https://www.esdm.go.id/assets/imagecache/mediaList/xMigas-105.png.pagespeed.ic.-iwD4w2f--.png"></a>
-                  <br><br>
-                  <h3 class="panel-title">Ditjen Migas</h3><br>
-                </div> 
+            <?php foreach ($unit as $units) { ?>
+              <div class="col-sm-2">
+                <div class="panel panel-success">
+                  <div class="panel-heading">
+                    <a href="#"><img src="<?php echo $units->url_img; ?>"></a>
+                    <br><br>
+                    <h3 class="panel-title"><?php echo $units->nama_unit; ?></h3>
+                    <?php if ($units->id_unit == 5) { echo '';  } else { echo '<br>'; } ?>
+                  </div> 
+                </div>
               </div>
-            </div>
+            <?php } ?> 
 
-            <div class="col-sm-2">
-              <div class="panel panel-success">
-                <div class="panel-heading">
-                  <a href=""><img src="https://www.esdm.go.id/assets/imagecache/mediaList/xEBTKE-105.png.pagespeed.ic.9hws-G56Ct.png"></a>
-                  <br><br>
-                  <h3 class="panel-title">Ditjen EBTKE</h3><br>
-                </div> 
-              </div>
-            </div>
-
-             <div class="col-sm-2">
-              <div class="panel panel-success">
-                <div class="panel-heading">
-                  <a href=""><img src="https://www.esdm.go.id/assets/imagecache/mediaList/xGatrik-105px.png.pagespeed.ic.8BDgAiCpQK.png"></a>
-                  <br><br>
-                  <h3 class="panel-title">Ditjen Gatrik</h3><br>
-                </div> 
-              </div>
-            </div>
-
-             <div class="col-sm-2">
-              <div class="panel panel-success">
-                <div class="panel-heading">
-                  <a href=""><img src="https://www.esdm.go.id/assets/imagecache/mediaList/xMinerba-105px.png.pagespeed.ic.1_Ip7w1O_y.png"></a>
-                  <br><br>
-                  <h3 class="panel-title">Ditjen Minerba</h3>
-                  <br>
-                </div> 
-              </div>
-            </div>
-
-             <div class="col-sm-2">
-              <div class="panel panel-success">
-                <div class="panel-heading">
-                  <a href=""><img src="https://www.esdm.go.id/assets/imagecache/mediaList/xItjen.png.pagespeed.ic.Q8VtQCEB1S.png"></a>
-                  <br><br>
-                  <h3 class="panel-title">Inspektorat Jendral</h3>
-                </div> 
-              </div>
-            </div>
-
-            <div class="col-sm-2">
-              <div class="panel panel-success">
-                <div class="panel-heading">
-                  <a href=""><img src="https://www.esdm.go.id/assets/imagecache/mediaList/xGeologi.png.pagespeed.ic.pi_Ev-F5NR.png"></a>
-                  <br><br>
-                  <h3 class="panel-title">Badan Geologi</h3><br>
-                </div> 
-              </div>
-            </div>
-
-            <div class="col-sm-2">
-              <div class="panel panel-success">
-                <div class="panel-heading">
-                  <a href=""><img src="https://www.esdm.go.id/assets/imagecache/mediaList/xLitbang.png.pagespeed.ic.HwlQvnRf9V.png"></a>
-                  <br><br>
-                  <h3 class="panel-title">Badan Litbang</h3>
-                </div> 
-              </div>
-            </div>
-
-            <div class="col-sm-2">
-              <div class="panel panel-success">
-                <div class="panel-heading">
-                  <a href=""><img src="https://www.esdm.go.id/assets/imagecache/mediaList/xBPSDM.png.pagespeed.ic.rI80dnIGB9.png"></a>
-                  <br><br>
-                  <h3 class="panel-title">BPSDM ESDM</h3>
-                </div> 
-              </div>
-            </div>
-
-             
           </div>
         </div> 
-      <hr>
+        <hr>
       </section>
       <!-- /.content -->
     </div>
