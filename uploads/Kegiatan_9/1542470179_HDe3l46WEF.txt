@@ -1,0 +1,52 @@
+CREATE VIEW HASIL
+AS
+    SELECT  AUCTIONITEMID ,
+            ITEMID ,
+            PHYSICALCOLORID ,
+            CREATEDATE ,
+            REGISTRATIONDATE ,
+            FINALPRICEITEM ,
+            BPKB ,
+            FAKTUR ,
+            KUITANSI ,
+            SURATPELEPASANHAK ,
+            KTPPEMILIK ,
+            FORMA ,
+            [MERK] AS MERK ,
+            [SERI] AS SERI ,
+            [SILINDER] AS SILINDER ,
+            [GRADE] AS GRADE ,
+            [SUBGRADE] AS SUBGRADE ,
+            [TRANSMISI] AS TRANSMISI ,
+            [TAHUN] AS TAHUN ,
+            [NOPOLISI] AS NOPOLISI ,
+            [KM] AS KM ,
+            [PLAT-DASAR] AS PLATDASAR ,
+            [NO-RANGKA] AS NORANGKA ,
+            [TGL-KEUR] AS TGLKEUR
+    FROM    ( SELECT    AUI.AUCTIONITEMID ,
+                        AUI.ITEMID ,
+                        AUI.PHYSICALCOLORID ,
+                        AUI.CREATEDATE ,
+                        AUI.REGISTRATIONDATE ,
+                        AUI.FINALPRICEITEM ,
+                        AUI.BPKB ,
+                        AUI.FAKTUR ,
+                        AUI.KUITANSI ,
+                        AUI.SURATPELEPASANHAK ,
+                        AUI.KTPPEMILIK ,
+                        AUI.FORMA ,
+                        ATR.PERMALINK ,
+                        ISNULL(ATD.ATTRIBUTEDETAIL, AUD.VALUE) ATTRIBUTEDETAIL
+              FROM      AUCTIONITEM AUI ( NOLOCK )
+                        INNER JOIN AUCTIONDETAIL AUD ( NOLOCK ) ON AUI.AUCTIONITEMID = AUD.AUCTIONITEMID
+                        INNER JOIN ATTR ATR ( NOLOCK ) ON ATR.ATTRIBUTEID = AUD.ATTRIBUTEID
+                        LEFT JOIN ATTRDETAIL (NOLOCK) ATD ON ATD.ATTRIBUTEID = ATR.ATTRIBUTEID
+                                                             AND ATD.ATTRIBUTEDETAILID = AUD.VALUE
+            ) P PIVOT
+( MAX(ATTRIBUTEDETAIL) FOR PERMALINK IN ( [MERK], [SERI], [SILINDER], [GRADE],
+                                          [SUBGRADE], [TRANSMISI], [TAHUN],
+                                          [NOPOLISI], [KM], [PLAT-DASAR],
+                                          [NO-RANGKA], [TGL-KEUR] ) ) AS PVT 
+                                          
+--SELECT * FROM HASIL

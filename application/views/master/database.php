@@ -53,7 +53,7 @@
                 					<a data-toggle="modal" href='#modal-id'><img src="<?php echo $units->url_img; ?>"></a>
                 					<?php 
                 				} else {?>
-                					<a href="<?php echo site_url('database_kegiatan/'.$units->id_unit) ?>"><img src="<?php echo $units->url_img; ?>"></a>
+                					<a href="<?php echo site_url('kegiatan/listing/'.$units->id_unit) ?>"><img src="<?php echo $units->url_img; ?>"></a>
                 				<?php } ?>
                 				<br><br>
                 				<h3 class="panel-title"><?php echo $units->nama_unit; ?></h3>

@@ -14,7 +14,7 @@
 		<div class="col-xs-12">
 			<div class="box">
 				<div class="box-header">
-					<a href="<?php echo site_url('kegiatan/add'); ?>" class="btn btn-success"><i class="fa fa-plus"></i> Tambah Kegiatan</a>
+					<a href="<?php echo site_url('kegiatan/add/'.$idUnit); ?>" class="btn btn-success"><i class="fa fa-plus"></i> Tambah Kegiatan</a>
 					<!-- div class="pull-left">
 						<div class="form-group">
 							<label class="col-md-3 control-label"> Tahun </label>
@@ -489,9 +489,9 @@
 								<td><?php echo @$row['t_cdate']==''?'':date('Y-m-d H:i',@$row['t_cdate']); ?></td>
 								<td><?php echo @$row['status']; ?></td>
 								<td>
-									<a href="<?php echo site_url('kegiatan/detail/'.$row['id_keg']); ?>" class="btn btn-xs btn-info" title="Detail"><i class="fa fa-eye"></i></a>
-									<a href="<?php echo site_url('kegiatan/edit/'.$row['id_keg']); ?>" class="btn btn-xs btn-warning" title="Edit"><i class="fa fa-pencil"></i></a>
-									<a href="<?php echo site_url('kegiatan/addlog/'.$row['id_keg']); ?>" class="btn btn-xs btn-success" title="Tambah Log"><i class="fa fa-plus"></i></a>
+									<a href="<?php echo site_url('kegiatan/detail/'.$row['id_unit'].'/'.$row['id_keg']); ?>" class="btn btn-xs btn-info" title="Detail"><i class="fa fa-eye"></i></a>
+									<a href="<?php echo site_url('kegiatan/edit/'.$row['id_unit'].'/'.$row['id_keg']); ?>" class="btn btn-xs btn-warning" title="Edit"><i class="fa fa-pencil"></i></a>
+									<a href="<?php echo site_url('kegiatan/addlog/'.$row['id_unit'].'/'.$row['id_keg']); ?>" class="btn btn-xs btn-success" title="Tambah Log"><i class="fa fa-plus"></i></a>
 								</td>
 							</tr>
 							<?php } ?>

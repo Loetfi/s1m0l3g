@@ -8,9 +8,15 @@ class Kegiatan_model extends CI_Model {
 		$resutl = $this->db->query($sql)->result_array();
 		return $resutl;
 	}
-	function getAllKegiatan(){
+	function getAllKegiatan($idUnit = 0){
+		$where = '';
+		if ($idUnit != 0)
+			$where = " Where k.id_unit = '".$idUnit."' ";
+		
 		$sql = "SELECT
 			k.*, 
+			u.nama_unit,
+			u.url_img,
 			t.id_target,
 			t.tahun AS tahun_pengajuan,
 			t.cdate AS t_cdate
@@ -19,6 +25,9 @@ class Kegiatan_model extends CI_Model {
 		LEFT JOIN kegiatan_target t 
 			ON k.id_keg = t.id_keg
 			AND t. STATUS = 'aktif'
+		LEFT JOIN unit u 
+			ON u.id_unit = k.id_unit
+		".$where."
 		ORDER BY
 			t.tahun DESC,
 			k.id_keg DESC";
@@ -46,7 +55,11 @@ class Kegiatan_model extends CI_Model {
 		
 	}
 	
-	function detail($idKeg){
+	function detail($idKeg, $idUnit = 0){
+		$where = '';
+		if ($idUnit != 0)
+			$where = " AND id_unit = '".$idUnit."' ";
+		
 		$sql = "select  
 			id_keg
 			,nama_keg
@@ -57,7 +70,8 @@ class Kegiatan_model extends CI_Model {
 			,mdate
 			,muser
 		from kegiatan 
-		where id_keg = '$idKeg' ";
+		where id_keg = '$idKeg' 
+			".$where;
 		$resutl = $this->db->query($sql)->row_array();
 		return $resutl;
 	}

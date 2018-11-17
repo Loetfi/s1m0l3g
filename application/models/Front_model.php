@@ -10,6 +10,15 @@ class Front_model extends CI_Model {
 		} catch (Exception $e) {
 			return $this->db->_error_message();
 		}
+	}
+	
+	public function detail_unit($id)
+	{
+		try {
+			return $this->db->query("SELECT * from unit where id_unit = $id")->row_array();
+		} catch (Exception $e) {
+			return $this->db->_error_message();
+		}
 	}	
 
 }

@@ -13,7 +13,7 @@
 				<div class="box-header">
 					<h3 class="box-title">&nbsp;</h3>
 					<div class="box-tools pull-right">
-						<a href="<?php echo site_url( $this->uri->segment(1)); ?>" class="btn btn-box-tool"><i class="fa fa-arrow-left"></i></a>
+						<a href="<?php echo site_url($backUrl); ?>" class="btn btn-box-tool"><i class="fa fa-arrow-left"></i></a>
 						<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
 					</div>
 				</div>
@@ -43,6 +43,12 @@
 									<option value="<?php echo $i; ?>"><?php echo 'B'.str_pad($i,2,'0',STR_PAD_LEFT); ?></option>
 									<?php } ?>
 								</select>
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="abstraksi" class="col-sm-2 control-label">abstraksi</label>
+							<div class="col-sm-10">
+								<textarea class="form-control" id="abstraksi" placeholder="abstraksi" required></textarea>
 							</div>
 						</div>
 						

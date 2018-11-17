@@ -13,7 +13,7 @@
 				<div class="box-header">
 					<h3 class="box-title">Detail Kegiatan</h3>
 					<div class="box-tools pull-right">
-						<a href="<?php echo site_url( $this->uri->segment(1)); ?>" class="btn btn-box-tool"><i class="fa fa-arrow-left"></i></a>
+						<a href="<?php echo site_url(@$backUrl); ?>" class="btn btn-box-tool"><i class="fa fa-arrow-left"></i></a>
 						<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
 					</div>
 				</div>
@@ -53,13 +53,13 @@
 				<div class="box-header">
 					<h3 class="box-title">Form Tambah Log Kegiatan</h3>
 					<div class="box-tools pull-right">
-						<a href="<?php echo site_url( $this->uri->segment(1)); ?>" class="btn btn-box-tool"><i class="fa fa-arrow-left"></i></a>
+						<a href="<?php echo site_url(@$backUrl); ?>" class="btn btn-box-tool"><i class="fa fa-arrow-left"></i></a>
 						<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
 					</div>
 				</div>
 				<!-- /.box-header -->
 				
-				<form action="<?php echo site_url('kegiatan/addLogProcess'); ?>" method="POST" id="addLogKegiatanForm" class="form-horizontal" enctype="multipart/form-data" target="_blank">
+				<form action="<?php echo site_url('kegiatan/addLogProcess/'.@$idUnit); ?>" method="POST" id="addLogKegiatanForm" class="form-horizontal" enctype="multipart/form-data" target="_blank">
 					<input type="hidden" name="id_keg" id="id_keg" value="<?php echo @$detail['id_keg']; ?>">
 					<div class="box-body">
 						<div class="row">

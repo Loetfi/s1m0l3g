@@ -10,6 +10,7 @@ class Kegiatan extends CI_Controller {
 		$this->load->library('form_validation');
 		$this->load->model('auth_model','auth');
 		$this->load->model('kegiatan_model','keg');
+		$this->load->model('front_model');
 	}
 
 
@@ -27,28 +28,50 @@ class Kegiatan extends CI_Controller {
 		$this->load->view('template/content', $data, FALSE);
 		$this->load->view('template/footer', $data, FALSE);
 	}
-	
-	function add(){
+	public function listing($idUnit){
+		$detailUnit = $this->front_model->detail_unit($idUnit);
 		$data = array(
-			'title' => 'Tambah Master Kegiatan' ,
-			'page'	=> 'master/kegiatan_add'
+			'title' => 'Master Kegiatan '.@$detailUnit['nama_unit'],
+			'page'	=> 'master/kegiatan',
+			'idUnit'=> $idUnit
+		);
+		
+		$data['tahun'] = $this->keg->getTahunKegiatan();
+		$data['getAllKegiatan'] = $this->keg->getAllKegiatan($idUnit);
+		// print_r($data['getAllKegiatan']); die();
+		
+		$this->load->view('template/header', $data, FALSE);
+		$this->load->view('template/content', $data, FALSE);
+		$this->load->view('template/footer', $data, FALSE);
+	}
+	
+	function add($idUnit){
+		$detailUnit = $this->front_model->detail_unit($idUnit);
+		$data = array(
+			'title' => 'Tambah Master Kegiatan '.@$detailUnit['nama_unit'],
+			'page'	=> 'master/kegiatan_add',
+			'idUnit'=> $idUnit,
+			'backUrl'=> 'kegiatan/listing/'.$idUnit
 		);
 		
 		$this->load->view('template/header', $data, FALSE);
 		$this->load->view('template/content', $data, FALSE);
 		$this->load->view('template/footer', $data, FALSE);
 	}
-	function addProcess(){
+	function addProcess($idUnit){
 		$nama_keg = @$_POST['nama_keg'];
 		$tahun_target = @$_POST['tahun_target'];
 		$bulan_target = @$_POST['bulan_target'];
+		$abstraksi = @$_POST['abstraksi'];
 		$status = 'Aktif';
 		$cdate = time();
 		$cuser = 1;
 		
 		$arr = array(
+			'id_unit' => $idUnit,
 			'nama_keg' => $nama_keg,
 			'tahun' => $tahun_target,
+			'abstraksi' => $abstraksi,
 			'status' => $status,
 			'cdate' => $cdate,
 			'cuser' => $cuser,
@@ -92,17 +115,22 @@ class Kegiatan extends CI_Controller {
 		echo json_encode($data);
 	}
 	
-	function detail($idKeg){
+	function detail($idUnit, $idKeg){
 		$data = array(
 			'title' => 'Detail Master Kegiatan' ,
-			'page'	=> 'master/kegiatan_detail'
+			'page'	=> 'master/kegiatan_detail' ,
+			'idUnit'=> $idUnit,
+			'backUrl'=> 'kegiatan/listing/'.$idUnit
 		);
+		$data['detail'] = $this->keg->detail($idKeg, $idUnit);
+		if (!$data['detail'])
+			redirect('kegiatan/listing/'.$idUnit,'refresh');
 		
-		$data['detail'] = $this->keg->detail($idKeg);
 		$data['logTarget'] = $this->keg->logTarget($idKeg);
 		
 		$idxLog = 0;
 		$arrIdLog = array();
+		@$allLogKegiatan = array();
 		$logKegiatan = $this->keg->logKegiatan($idKeg);
 		foreach($logKegiatan as $row){
 			$id_log = $row['id_log'];
@@ -129,7 +157,7 @@ class Kegiatan extends CI_Controller {
 			$idxLog++;
 		}
 		$data['allLogKegiatan'] = @$allLogKegiatan;
-		// print_r($allLogKegiatan); die();
+		// print_r(@$allLogKegiatan); die();
 		
 		$idxLog = 0;
 		$arrIdLog = array();
@@ -150,13 +178,19 @@ class Kegiatan extends CI_Controller {
 		$this->load->view('template/footer', $data, FALSE);
 	}
 	
-	function addLog($idKeg){
+	function addLog($idUnit, $idKeg){
+		$detailUnit = $this->front_model->detail_unit($idUnit);
 		$data = array(
-			'title' => 'Tambah Log Kegiatan' ,
-			'page'	=> 'master/kegiatan_log'
+			'title' => 'Tambah Log Kegiatan '.@$detailUnit['nama_unit'] ,
+			'page'	=> 'master/kegiatan_log',
+			'idUnit'=> $idUnit,
+			'backUrl'=> 'kegiatan/listing/'.$idUnit
 		);
 		
-		$data['detail'] = $this->keg->detail($idKeg);
+		$data['detail'] = $this->keg->detail($idKeg, $idUnit);
+		if (!$data['detail'])
+			redirect('kegiatan/listing/'.$idUnit,'refresh');
+		
 		$data['logTarget'] = $this->keg->logTarget($idKeg);
 		
 		$this->load->view('template/header', $data, FALSE);
@@ -164,7 +198,7 @@ class Kegiatan extends CI_Controller {
 		$this->load->view('template/footer', $data, FALSE);
 	}
 	
-	function addLogProcess(){
+	function addLogProcess($idUnit){
 		$cdate = time();
 		
 		$id_keg = @$_POST['id_keg'];
@@ -256,16 +290,18 @@ class Kegiatan extends CI_Controller {
 			$this->db->update('kegiatan', array('mdate' => $cdate), array('id_keg' => $id_keg));
 		}
 		
-		redirect('kegiatan/detail/'.$id_keg,'refresh');
+		redirect('kegiatan/detail/'.$idUnit.'/'.$id_keg,'refresh');
 	}
 	
-	function edit($idKeg){
+	function edit($idUnit, $idKeg){
 		$data = array(
 			'title' => 'Edit Kegiatan' ,
 			'page'	=> 'master/kegiatan_edit'
 		);
 		
-		$data['detail'] = $this->keg->detail($idKeg);
+		$data['detail'] = $this->keg->detail($idKeg, $idUnit);
+		if (!$data['detail'])
+			redirect('kegiatan/listing/'.$idUnit,'refresh');
 		$data['logTarget'] = $this->keg->logTarget($idKeg);
 		
 		$this->load->view('template/header', $data, FALSE);
@@ -287,6 +323,37 @@ class Kegiatan extends CI_Controller {
 		);
 		
 		$this->keg->editKegiatan($arrUpdate, array('id_keg' => $id_keg));
+		
+		$data = array(
+			'status' => 1,
+			'message' => 'Berhasil',
+			'data' => array()
+		);
+			
+		echo json_encode($data);
+	}
+	
+	function addLogExtend(){
+		$id_keg = $_POST['id_keg'];
+		$status = $_POST['status'];
+		$tanggal = @$_POST['tanggal'];
+		$waktu = @$_POST['waktu'];
+		$cdate = time();
+		
+		$YmdHis = date('Y-m-d H:i:s', strtotime($tanggal.' '.$waktu));
+		$dataInsert = array(
+			'id_keg' => $id_keg,
+			'tanggal' => $YmdHis,
+			'lokasi' => '',
+			'judul_kegiatan' => 'Ganti Target',
+			'hasil_kegiatan' => 'Ganti Target',
+			'file_pendukung' => null,
+			'file_asli' => null,
+			'status' => $status,
+			'cdate' => $cdate,
+		);
+		
+		$this->keg->insertKegiatanLog();
 		
 		$data = array(
 			'status' => 1,
