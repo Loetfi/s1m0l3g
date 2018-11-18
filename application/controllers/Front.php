@@ -16,10 +16,17 @@ class Front extends CI_Controller {
 
 	public function index(){
 		$ada = $this->session->userdata('username') ? redirect('database','refresh') : '';
+		
+		$csrf = array(
+			'name' => $this->security->get_csrf_token_name(),
+			'hash' => $this->security->get_csrf_hash()
+		);
+		
 		$data = array(
 			'title' => 'Database Monitoring Kegiatan' ,
 			'page'	=> 'master/database',
 			'unit'	=> $this->front_model->get_all_unit(),
+			'csrf'	=> $csrf,
 			'message'	=> $this->session->flashdata('message')
 		);
 		

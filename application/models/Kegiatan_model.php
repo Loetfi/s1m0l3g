@@ -55,22 +55,37 @@ class Kegiatan_model extends CI_Model {
 		
 	}
 	
+	function resetTarget($idKeg){
+		$data = array(
+			'mdate' => time(),
+			'muser' => 1,
+			'status' => 'Pasif',
+		);
+		$this->db->where(array('id_keg' => $idKeg));
+		return $query = $this->db->update('kegiatan_target', $data);
+	}
+	
 	function detail($idKeg, $idUnit = 0){
 		$where = '';
 		if ($idUnit != 0)
-			$where = " AND id_unit = '".$idUnit."' ";
+			$where = " AND k.id_unit = '".$idUnit."' ";
 		
-		$sql = "select  
+		$sql = "SELECT  
 			id_keg
 			,nama_keg
 			,tahun
+			,abstraksi
+			,nama_unit
+			,url_img
 			,status
-			,cdate
-			,cuser
-			,mdate
-			,muser
-		from kegiatan 
-		where id_keg = '$idKeg' 
+			,k.cdate
+			,k.cuser
+			,k.mdate
+			,k.muser
+		FROM kegiatan k
+		LEFT JOIN unit u 
+			ON u.id_unit = k.id_unit
+		where k.id_keg = '$idKeg' 
 			".$where;
 		$resutl = $this->db->query($sql)->row_array();
 		return $resutl;
@@ -149,6 +164,20 @@ class Kegiatan_model extends CI_Model {
 	function editKegiatan($post, $where){
 		$this->db->where($where);
 		return $query = $this->db->update('kegiatan', $post);
+	}
+	
+	function searchFileLog($idKeg, $idLog, $filename){
+		$sql = "SELECT 
+			file_pendukung, file_asli 
+		FROM kegiatan_log 
+		WHERE 
+			id_keg = '".$idKeg."'
+			AND id_log = '".$idLog."'
+			AND file_pendukung like '%".$filename."%'
+		LIMIT 1
+		";
+		$resutl = $this->db->query($sql)->row_array();
+		return $resutl;
 	}
 	
 }

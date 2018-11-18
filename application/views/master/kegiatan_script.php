@@ -26,6 +26,7 @@ $(function(){
 				tahun_target: tahun_target,
 				bulan_target: bulan_target,
 				abstraksi: abstraksi,
+				'<?php echo $this->security->get_csrf_token_name(); ?>' : '<?php echo $this->security->get_csrf_hash(); ?>'
 			},
 			success: function(data){
 				if (data.status){
@@ -50,14 +51,12 @@ $(function(){
 		interval: 15,
 		showInputs: false,
 	});
-
 	
 	$('#editKegiatanForm').submit(function(){
 		id_keg = $('#id_keg').val();
 		nama_keg = $('#nama_keg').val();
 		status = $('#status').val();
-		tahun_target = $('#tahun_target').val();
-		bulan_target = $('#bulan_target').val();
+		abstraksi = $('#abstraksi').val();
 		
 		$.ajax({
 			dataType: "json",
@@ -67,10 +66,12 @@ $(function(){
 				id_keg: id_keg,
 				nama_keg: nama_keg,
 				status: status,
+				abstraksi: abstraksi,
+				'<?php echo $this->security->get_csrf_token_name(); ?>' : '<?php echo $this->security->get_csrf_hash(); ?>'
 			},
 			success: function(data){
 				if (data.status){
-					window.location.href = "<?php echo site_url( $this->uri->segment(1)); ?>";
+					window.location.href = "<?php echo site_url($backUrl); ?>";
 				}
 			},
 			error: function (jqXHR, textStatus, errorThrown) {
@@ -82,25 +83,27 @@ $(function(){
 		
 		return false;
 	});
-	$('#editKegiatanForm').submit(function(){
+	
+	$('#addLogTargetForm').submit(function(){
 		id_keg = $('#id_keg').val();
-		tahun_target = $('#nama_keg').val();
-		status = $('#status').val();
 		tahun_target = $('#tahun_target').val();
 		bulan_target = $('#bulan_target').val();
+		status = $('#statusTarget').val();
 		
 		$.ajax({
 			dataType: "json",
 			type: "POST",
-			url: "<?php echo site_url('kegiatan/editProcess'); ?>",
+			url: "<?php echo site_url('kegiatan/addTarget'); ?>",
 			data : {
 				id_keg: id_keg,
-				nama_keg: nama_keg,
+				tahun_target: tahun_target,
+				bulan_target: bulan_target,
 				status: status,
+				'<?php echo $this->security->get_csrf_token_name(); ?>' : '<?php echo $this->security->get_csrf_hash(); ?>'
 			},
 			success: function(data){
 				if (data.status){
-					window.location.href = "<?php echo site_url( $this->uri->segment(1)); ?>";
+					window.location.href = "<?php echo site_url($backUrl); ?>";
 				}
 			},
 			error: function (jqXHR, textStatus, errorThrown) {

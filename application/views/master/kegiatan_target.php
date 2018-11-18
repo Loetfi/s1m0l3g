@@ -34,11 +34,11 @@
 						</tr>
 						<tr>
 							<th>cdate</th>
-							<td><?php echo date('d F Y h:i:s',@$detail['cdate']); ?></td>
+							<td><?php echo date('d F Y H:i:s',@$detail['cdate']); ?></td>
 						</tr>
 						<tr>
 							<th>mdate</th>
-							<td><?php echo date('d F Y h:i:s',@$detail['mdate']); ?></td>
+							<td><?php echo date('d F Y H:i:s',@$detail['mdate']); ?></td>
 						</tr>
 					</table>
 				</div>

@@ -33,7 +33,8 @@ class Kegiatan extends CI_Controller {
 		$data = array(
 			'title' => 'Master Kegiatan '.@$detailUnit['nama_unit'],
 			'page'	=> 'master/kegiatan',
-			'idUnit'=> $idUnit
+			'idUnit'=> $idUnit,
+			'backUrl'=> 'database'
 		);
 		
 		$data['tahun'] = $this->keg->getTahunKegiatan();
@@ -46,6 +47,10 @@ class Kegiatan extends CI_Controller {
 	}
 	
 	function add($idUnit){
+		
+		if (!$this->session->userdata('username'))
+			redirect(site_url('kegiatan/listing/'.$idUnit));
+		
 		$detailUnit = $this->front_model->detail_unit($idUnit);
 		$data = array(
 			'title' => 'Tambah Master Kegiatan '.@$detailUnit['nama_unit'],
@@ -197,7 +202,6 @@ class Kegiatan extends CI_Controller {
 		$this->load->view('template/content', $data, FALSE);
 		$this->load->view('template/footer', $data, FALSE);
 	}
-	
 	function addLogProcess($idUnit){
 		$cdate = time();
 		
@@ -294,9 +298,13 @@ class Kegiatan extends CI_Controller {
 	}
 	
 	function edit($idUnit, $idKeg){
+		if (!$this->session->userdata('username'))
+			redirect(site_url('kegiatan/listing/'.$idUnit));
+		
 		$data = array(
 			'title' => 'Edit Kegiatan' ,
-			'page'	=> 'master/kegiatan_edit'
+			'page'	=> 'master/kegiatan_edit',
+			'backUrl'=> 'kegiatan/listing/'.$idUnit
 		);
 		
 		$data['detail'] = $this->keg->detail($idKeg, $idUnit);
@@ -309,16 +317,17 @@ class Kegiatan extends CI_Controller {
 		$this->load->view('template/footer', $data, FALSE);
 		
 	}
-	
 	function editProcess(){
 		$id_keg = $_POST['id_keg'];
 		$nama_keg = $_POST['nama_keg'];
 		$status = $_POST['status'];
+		$abstraksi = $_POST['abstraksi'];
 		$mdate = time();
 		
 		$arrUpdate = array(
 			'nama_keg' => $nama_keg,
 			'status' => $status,
+			'abstraksi' => $abstraksi,
 			'mdate' => $mdate
 		);
 		
@@ -332,28 +341,25 @@ class Kegiatan extends CI_Controller {
 			
 		echo json_encode($data);
 	}
-	
-	function addLogExtend(){
+	function addTarget(){
 		$id_keg = $_POST['id_keg'];
+		$tahun_target = @$_POST['tahun_target'];
+		$bulan_target = @$_POST['bulan_target'];
 		$status = $_POST['status'];
-		$tanggal = @$_POST['tanggal'];
-		$waktu = @$_POST['waktu'];
 		$cdate = time();
 		
-		$YmdHis = date('Y-m-d H:i:s', strtotime($tanggal.' '.$waktu));
-		$dataInsert = array(
+		$this->keg->resetTarget($id_keg);
+		
+		$arrTarget = array(
 			'id_keg' => $id_keg,
-			'tanggal' => $YmdHis,
-			'lokasi' => '',
-			'judul_kegiatan' => 'Ganti Target',
-			'hasil_kegiatan' => 'Ganti Target',
-			'file_pendukung' => null,
-			'file_asli' => null,
+			'id_target' => $bulan_target,
+			'tahun' => $tahun_target,
 			'status' => $status,
 			'cdate' => $cdate,
+			'cuser' => @$cuser,
 		);
 		
-		$this->keg->insertKegiatanLog();
+		$this->keg->insertKegiatanTarget($arrTarget);
 		
 		$data = array(
 			'status' => 1,
@@ -364,6 +370,22 @@ class Kegiatan extends CI_Controller {
 		echo json_encode($data);
 	}
 	
+	function downloadFile($idKeg, $idLog, $fileName){
+		$this->load->helper('download');
+		$data = file_get_contents(base_url('uploads/Kegiatan_'.$idKeg.'/'.$fileName));
+		
+		$namaFileDownload = $fileName;
+		$thisData = $this->keg->searchFileLog($idKeg, $idLog, $fileName);
+		$file_nameasli = explode(";", $thisData['file_asli']);
+		$file_pendukung = explode(";", $thisData['file_pendukung']);
+		for($i=0; $i<count($file_pendukung); $i++){
+			if ($fileName == $file_pendukung[$i])
+				$namaFileDownload = str_replace(';','',$file_nameasli[$i]);
+		}
+		force_download($namaFileDownload, $data);
+        
+	}
+	// http://localhost:55/04.Project/ESDM/s1m0l3g/index.php/kegiatan/downloadFile/10/1542535338_r5mu481Ta7.jpg
 }
 
 /* End of file Kegiatan.php */

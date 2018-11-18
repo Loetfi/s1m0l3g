@@ -29,16 +29,20 @@
 							<td><?php echo @$detail['tahun']; ?></td>
 						</tr>
 						<tr>
+							<th>abstraksi</th>
+							<td><p><?php echo @$detail['abstraksi']; ?></p></td>
+						</tr>
+						<tr>
 							<th>status</th>
 							<td><?php echo @$detail['status']; ?></td>
 						</tr>
 						<tr>
 							<th>cdate</th>
-							<td><?php echo date('d F Y h:i:s',@$detail['cdate']); ?></td>
+							<td><?php echo date('d F Y H:i:s',@$detail['cdate']); ?></td>
 						</tr>
 						<tr>
 							<th>mdate</th>
-							<td><?php echo date('d F Y h:i:s',@$detail['mdate']); ?></td>
+							<td><?php echo ((int)$detail['mdate'] > 0 ? date('d F Y H:i:s',@$detail['mdate']) : ''); ?></td>
 						</tr>
 					</table>
 				</div>
@@ -61,6 +65,7 @@
 				
 				<form action="<?php echo site_url('kegiatan/addLogProcess/'.@$idUnit); ?>" method="POST" id="addLogKegiatanForm" class="form-horizontal" enctype="multipart/form-data" target="_blank">
 					<input type="hidden" name="id_keg" id="id_keg" value="<?php echo @$detail['id_keg']; ?>">
+					<input type="hidden" name="<?php echo $this->security->get_csrf_token_name(); ?>" value="<?php echo $this->security->get_csrf_hash(); ?>" />
 					<div class="box-body">
 						<div class="row">
 							<div class="col-sm-6">

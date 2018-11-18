@@ -29,16 +29,20 @@
 							<td><?php echo @$detail['tahun']; ?></td>
 						</tr>
 						<tr>
+							<th>abstraksi</th>
+							<td><p><?php echo @$detail['abstraksi']; ?></p></td>
+						</tr>
+						<tr>
 							<th>status</th>
 							<td><?php echo @$detail['status']; ?></td>
 						</tr>
 						<tr>
 							<th>cdate</th>
-							<td><?php echo date('d F Y h:i:s',@$detail['cdate']); ?></td>
+							<td><?php echo date('d F Y H:i:s',@$detail['cdate']); ?></td>
 						</tr>
 						<tr>
 							<th>mdate</th>
-							<td><?php echo date('d F Y h:i:s',@$detail['mdate']); ?></td>
+							<td><?php echo ((int)$detail['mdate'] > 0 ? date('d F Y H:i:s',@$detail['mdate']) : ''); ?></td>
 						</tr>
 					</table>
 				</div>
@@ -106,7 +110,7 @@
 						<div class="timeline-body"><?php echo $row['hasil_kegiatan']; ?></div>
 						<div class="timeline-footer">
 							<?php foreach($row['file'] as $rowFile){ ?>
-							<a href="<?php echo site_url('kegiatan/downloadFile/'.@$detail['id_keg'].'/'.$rowFile['namaFile']); ?>" class="btn btn-info btn-xs">
+							<a href="<?php echo site_url('kegiatan/downloadFile/'.@$detail['id_keg'].'/'.$row['id_log'].'/'.$rowFile['namaFile']); ?>" class="btn btn-info btn-xs">
 								<i class="fa fa-cloud-download"></i> <?php echo $rowFile['namaFileAsli']; ?>
 							</a>
 							<?php } ?>

@@ -96,6 +96,7 @@
             <div class="form-group">
               <label for="">Password</label>
               <input type="password" class="form-control" id="" placeholder="Password" name="password" required="">
+              <input type="hidden" name="<?=$csrf['name'];?>" value="<?=$csrf['hash'];?>" />
             </div>
 
             
@@ -126,7 +127,7 @@
               <div class="col-sm-2">
                 <div class="panel panel-success">
                   <div class="panel-heading">
-                    <a href="#"><img src="<?php echo $units->url_img; ?>"></a>
+                    <a href="<?php echo site_url('kegiatan/listing/'.$units->id_unit) ?>"><img src="<?php echo $units->url_img; ?>"></a>
                     <br><br>
                     <h3 class="panel-title"><?php echo $units->nama_unit; ?></h3>
                     <?php if ($units->id_unit == 5) { echo '';  } else { echo '<br>'; } ?>
