@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Database extends CI_Controller {
+class Pengguna extends CI_Controller {
 
 	public function __construct()
 	{
@@ -17,14 +17,12 @@ class Database extends CI_Controller {
 	public function index(){
 
 		$data = array(
-			'title' => 'Database Monitoring Pemrakarsa' ,
-			'page'	=> 'master/database',
-			'unit'	=> $this->front_model->get_all_unit(),
-			//'sesi'	=> $this->session->all_userdata() ? $this->session->all_userdata() : array()
+			'title' => 'Master Pengguna' ,
+			'page'	=> 'master/pengguna'
 		);
 		
 		$data['tahun'] = $this->keg->getTahunKegiatan();
-		$data['getAllKegiatan'] = $this->keg->getAllKegiatan();
+		// $data['getAllKegiatan'] = $this->keg->getAllKegiatan();
 		// print_r($data['getAllKegiatan']); die();
 		
 		$this->load->view('template/header', $data, FALSE);

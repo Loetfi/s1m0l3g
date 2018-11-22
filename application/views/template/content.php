@@ -10,7 +10,8 @@
     </a>
     <!-- Header Navbar: style can be found in header.less -->
     <nav class="navbar navbar-static-top">
-      <form class="navbar-form navbar-left" role="search">
+      <form class="navbar-form navbar-left" role="search" action="<?php echo site_url('search') ?>" method="POST">
+    <input type="hidden" name="<?=$this->security->get_csrf_token_name();?>" value="<?=$this->security->get_csrf_hash();?>" style="display: none">
         <div class="form-group">
           <input type="text" class="form-control" id="navbar-search-input" placeholder="Form Pencarian Kegiatan">
         </div>
@@ -36,8 +37,8 @@
                 <img src="http://jdih.awanesia.com/logo-esdm-kuning.png" class="img-circle" alt="User Image">
 
                 <p>
-                  Alexander Pierce - Web Developer
-                  <small>Member since Nov. 2012</small>
+                  <?php echo @$this->session->userdata('name');?>
+                  <small>Bagian : <?php echo @$this->session->userdata('sub_sector');?></small>
                 </p>
               </li>
               <!-- Menu Body --> 
