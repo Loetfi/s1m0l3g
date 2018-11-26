@@ -1,55 +1,42 @@
 <section class="content">
 
-      <!-- row -->
-      <div class="row">
-        <div class="col-md-12">
-          <!-- The time line -->
-          <ul class="timeline">
-            <!-- timeline time label -->
-            <li class="time-label">
-                  <span class="bg-success">
-                    Hasil Pencarian dari <span class="label label-info"><?php echo @$_GET['query']; ?></span>
-                  </span>
-            </li>
-            <!-- /.timeline-label -->
-            <!-- timeline item -->
-            <li>
-              <i class="fa fa-envelope bg-blue"></i>
+  <!-- row -->
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="box box-success">
+        <!-- The time line -->  
 
-              <div class="timeline-item">
-                <span class="time"><i class="fa fa-clock-o"></i> 12:05</span>
 
-                <h3 class="timeline-header"><a href="#">Support Team</a> sent you an email</h3>
 
-                <div class="timeline-body">
-                  Etsy doostang zoodles disqus groupon greplin oooj voxy zoodles,
-                  weebly ning heekya handango imeem plugg dopplr jibjab, movity
-                  jajah plickers sifteo edmodo ifttt zimbra. Babblely odeo kaboodle
-                  quora plaxo ideeli hulu weebly balihoo...
-                </div>
-                <div class="timeline-footer">
-                  <a class="btn btn-primary btn-xs">Read more</a>
-                  <a class="btn btn-danger btn-xs">Delete</a>
-                </div>
-              </div>
-            </li>
-            <!-- END timeline item -->
-            <!-- timeline item -->
-            <li>
-              <i class="fa fa-user bg-aqua"></i>
 
-              <div class="timeline-item">
-                <span class="time"><i class="fa fa-clock-o"></i> 5 mins ago</span>
-
-                <h3 class="timeline-header no-border"><a href="#">Sarah Young</a> accepted your friend request</h3>
-              </div>
-            </li>
-            <!-- END timeline item --> 
-            <li>
-              <i class="fa fa-clock-o bg-gray"></i>
-            </li>
-          </ul>
-        </div>
-        <!-- /.col -->
+        <div class="box-body">
+          <p>Hasil pencarian dari : <b><?php echo @$_GET['query'];?></b></p>
+          <?php for ($i=0; $i < 10; $i++) { ?>
+           <div class="box box-default">
+            <div class="box-body">
+              <h5><b>Judul Kegiatan</b></h5>
+              <p>Tanggal  : <?php echo date('d F Y ') ?> , Unit : Migas , Target Realisasi : <span class="label label-info">B6 2019</span> </p>
+              <p>Abstraksi : <i>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+              tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+              quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+              consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+              cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+              proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</i></p>
+            </div>
+          </div>
+        <?php  } ?>
+        <ul class="pagination">
+          <li><a href="#">&laquo;</a></li>
+          <li><a href="#">1</a></li>
+          <li><a href="#">2</a></li>
+          <li><a href="#">3</a></li>
+          <li><a href="#">4</a></li>
+          <li><a href="#">5</a></li>
+          <li><a href="#">&raquo;</a></li>
+        </ul>
       </div>
-      <!-- /.row --> 
+    </div>
+    <!-- /.col -->
+  </div>
+</div>
+<!-- /.row --> 

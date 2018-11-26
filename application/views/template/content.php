@@ -10,10 +10,10 @@
     </a>
     <!-- Header Navbar: style can be found in header.less -->
     <nav class="navbar navbar-static-top">
-      <form class="navbar-form navbar-left" role="search" action="<?php echo site_url('search') ?>" method="POST">
+      <form class="navbar-form navbar-left" role="search" action="<?php echo site_url('search') ?>" method="GET">
     <input type="hidden" name="<?=$this->security->get_csrf_token_name();?>" value="<?=$this->security->get_csrf_hash();?>" style="display: none">
         <div class="form-group">
-          <input type="text" class="form-control" id="navbar-search-input" placeholder="Form Pencarian Kegiatan">
+          <input type="text" class="form-control" id="navbar-search-input" placeholder="Form Pencarian Kegiatan" name="query">
         </div>
       </form>
       <!-- Sidebar toggle button-->
