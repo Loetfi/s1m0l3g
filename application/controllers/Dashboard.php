@@ -19,7 +19,35 @@ class Dashboard extends CI_Controller {
 			'title' => 'Dashboard Monitoring Pemrakarsa' ,
 			'page'	=> 'dashboard/dashboard'
 		);
-		 
+		
+		// database
+		$unit = $this->front_model->get_all_unit();
+		foreach($unit as $row){
+			$detailUnit[$row->id_unit] = $row;
+			$categories[] = $row->nama_unit;
+		}
+		
+		
+		// kegiatan berdasarkan unit
+		$rekapKegiatan = $this->db->query("
+			SELECT id_unit, tahun, count(*) terhitung
+			FROM `kegiatan` 
+			WHERE tahun= '".date('Y')."'
+			GROUP BY id_unit, tahun
+		")->result_array();
+		foreach($rekapKegiatan as $row){
+			$rekapUnit[$row['id_unit']] = (int)$row['terhitung'];
+		}
+		foreach($unit as $row){
+			$terhitungUnit[$row->id_unit] = @$rekapUnit[$row->id_unit];
+			$dataNilai[] = @$rekapUnit[$row->id_unit];
+		}
+		$data['diagramBatangTahun'] = array(
+			'categories' => $categories,
+			'data' => $dataNilai,
+		);
+		
+		// progress kegiatan
 		
 		$this->load->view('template/header', $data, FALSE);
 		$this->load->view('template/content', $data, FALSE);

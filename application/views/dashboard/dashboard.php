@@ -25,6 +25,7 @@
       <div class="box-body">
         <div class="chart">
           <div id="pencapaian_kegiatan" style="height: 300px"></div>
+          <div id="diagramBatangTahun" style="height: 300px"></div>
         </div>
       </div>
       <!-- /.box-body -->
@@ -98,6 +99,44 @@ Highcharts.chart('pencapaian_kegiatan', {
         data: [49.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1, null, null]
 
     }]
+});
+
+Highcharts.chart('diagramBatangTahun', {
+  credits: { enabled: false },
+  colors: ['#008d4c','#e08e0b','#8bbc21','#1aadce'],
+  chart: {
+        type: 'column'
+    },
+    title: {
+        text: 'Kegiatan Tahun <?php echo date('Y'); ?>'
+    },
+    xAxis: {
+        categories: <?php echo json_encode($diagramBatangTahun['categories']); ?>
+    },
+  yAxis: [{
+        title: {
+            text: 'Total'
+        }
+    }],
+  legend: {
+        shadow: true
+    },
+  tooltip: {
+        shared: true
+    },
+  series: [{
+    type: 'column',
+        name: 'Kegiatan',
+        data: <?php echo json_encode($diagramBatangTahun['data']); ?>
+
+    }, 
+	// {
+    // type: 'column',
+        // name: 'Belum Selesai',
+        // data: [49.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1, null, null]
+
+    // }
+	]
 });
 </script>
 

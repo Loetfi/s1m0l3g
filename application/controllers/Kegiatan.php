@@ -156,9 +156,9 @@ class Kegiatan extends CI_Controller {
 			}
 			
 			$allLogKegiatan[$idxLog] = $row;
-			$allLogKegiatan[$idxLog]['tanggal'] = $tanggal;
-			$allLogKegiatan[$idxLog]['waktu'] = $waktu;
-			$allLogKegiatan[$idxLog]['file'] = $file;
+			$allLogKegiatan[$idxLog]['tanggal'] = @$tanggal;
+			$allLogKegiatan[$idxLog]['waktu'] = @$waktu;
+			$allLogKegiatan[$idxLog]['file'] = @$file;
 			$idxLog++;
 		}
 		$data['allLogKegiatan'] = @$allLogKegiatan;

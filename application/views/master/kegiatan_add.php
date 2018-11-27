@@ -32,7 +32,7 @@
 							<label for="" class="col-sm-2 control-label">Target</label>
 							<div class="col-sm-2">
 								<select name="tahun_target" class="form-control" id="tahun_target" required>
-									<?php for($i=date('Y')+1; $i>=date('Y'); $i--){ ?>
+									<?php for($i=date('Y')+5; $i>=date('Y'); $i--){ ?>
 									<option value="<?php echo $i; ?>"><?php echo $i; ?></option>
 									<?php } ?>
 								</select>

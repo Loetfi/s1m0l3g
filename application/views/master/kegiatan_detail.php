@@ -109,7 +109,7 @@
 
 						<div class="timeline-body"><?php echo $row['hasil_kegiatan']; ?></div>
 						<div class="timeline-footer">
-							<?php foreach($row['file'] as $rowFile){ ?>
+							<?php if ($row['file']) foreach($row['file'] as $rowFile){ ?>
 							<a href="<?php echo site_url('kegiatan/downloadFile/'.@$detail['id_keg'].'/'.$row['id_log'].'/'.$rowFile['namaFile']); ?>" class="btn btn-info btn-xs">
 								<i class="fa fa-cloud-download"></i> <?php echo $rowFile['namaFileAsli']; ?>
 							</a>
