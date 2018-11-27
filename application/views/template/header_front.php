@@ -124,13 +124,13 @@
           <div class="row">
 
             <?php foreach ($unit as $units) { ?>
-              <div class="col-sm-2">
+              <div class="col-sm-3">
                 <div class="panel panel-success">
                   <div class="panel-heading">
                     <a href="#"><img src="<?php echo $units->url_img; ?>"></a>
                     <br><br>
                     <h3 class="panel-title"><?php echo $units->nama_unit; ?></h3>
-                    <?php if ($units->id_unit == 5) { echo '';  } else { echo '<br>'; } ?>
+                    <?php if ($units->id_unit == 5) { echo '';  } else { echo ''; } ?>
                   </div> 
                 </div>
               </div>
