@@ -11,37 +11,41 @@ class Pengguna extends CI_Controller {
 		$this->load->model('auth_model','auth');
 		$this->load->model('kegiatan_model','keg');
 		$this->load->model('front_model');
-	}
+        $this->load->model('pengguna_model');
+    }
 
 
-	public function index(){
+    public function index(){
 
-		$data = array(
-			'title' => 'Master Pengguna' ,
-			'page'	=> 'master/pengguna',
-			'url'	=> base_url('pengguna/data/1/1'),
-			'detail'	=> base_url('pengguna/data/1/1'),
-			'edit'	=> base_url('pengguna/data/1/1'),
-			'delete'	=> base_url('pengguna/data/1/1')
-		);
-		
-		$data['tahun'] = $this->keg->getTahunKegiatan();
+      $data = array(
+       'title'      => 'Tambah Pengguna' ,
+       'page'	     => 'master/pengguna',
+       'url'	     => base_url('pengguna/data/1/1'),
+       'detail'     => base_url('pengguna/detail'),
+       'edit'       => base_url('pengguna/edit'),
+       'delete'     => base_url('pengguna/delete'),
+       'message'    => $this->session->flashdata('message')
+   );
+
+
+
+      $data['tahun'] = $this->keg->getTahunKegiatan();
 		// $data['getAllKegiatan'] = $this->keg->getAllKegiatan();
 		// print_r($data['getAllKegiatan']); die();
-		
-		$this->load->view('template/header', $data, FALSE);
-		$this->load->view('template/content', $data, FALSE);
-		$this->load->view('template/footer', $data, FALSE);
-	}
 
-	public function data($id_flow , $login_id)
-	{
-		$this->load->helper('backend');
+      $this->load->view('template/header', $data, FALSE);
+      $this->load->view('template/content', $data, FALSE);
+      $this->load->view('template/footer', $data, FALSE);
+  }
 
-		$this->load->model('pengguna_model','lists');
+  public function data($id_flow , $login_id)
+  {
+      $this->load->helper('backend');
+
+      $this->load->model('pengguna_model','lists');
 		// $this->cabang_model->get_datatables();
 
-		$table          = 'login';
+      $table          = 'login';
     	$column_order   = ['a.username' , 'a.name', 'a.sub_sector']; //set column field database for datatable orderable
     	$column_search  = ['a.username' , 'a.name', 'a.sub_sector'];
     	$orderin        = ['a.username' => 'desc']; // default order  # 'id_website' => 'asc'
@@ -72,42 +76,88 @@ class Pengguna extends CI_Controller {
     		$row[]	= $d->id_flow;
     		$row[]	= $d->sub_sector;
     		// $row[]	= '';
-			$row[]	= btnStatus($d->status);
-    		// name
-    		// sub_sector
-    		// id_flow
-			// $row[]	= date('d F Y H:i:s',strtotime($d->cdate)); 
-    		$row[]	= "<div class='btn-group'>".$ACTdetail." ".$ACTupdate." ".$ACTdelete ."</div>"; 
+            $row[]	= btnStatus($d->status); 
+            $row[]	= "<div class='btn-group'>".$ACTdetail." ".$ACTupdate." ".$ACTdelete ."</div>"; 
 
-    		$data[] = $row;
-    	}
+            $data[] = $row;
+        }
 
-    	$output = array(
-    		"draw" => $_POST['draw'],
-    		"recordsTotal" => $this->lists->count_all($table, $id_flow , $login_id),
-    		"recordsFiltered" => $this->lists->count_filtered($table , $column_order , $column_search , $orderin, $id_flow , $login_id),
-    		"data" => $data,
-    	);
+        $output = array(
+          "draw" => $_POST['draw'],
+          "recordsTotal" => $this->lists->count_all($table, $id_flow , $login_id),
+          "recordsFiltered" => $this->lists->count_filtered($table , $column_order , $column_search , $orderin, $id_flow , $login_id),
+          "data" => $data,
+      );
    		//output to json format 
-    	admsapi(200 , 1, 'sukses' , $output );  
+        admsapi(200 , 1, 'sukses' , $output );  
 
     }
 
-    public function add(){
+    public function edit(){
 
-    	$data = array(
-    		'title' => 'Master Pengguna' ,
-    		'page'	=> 'master/pengguna_add'
-    	);
+       $data = array(
+          'title' => 'Ubah Pengguna' ,
+          'page'    => 'master/pengguna_add',
+          'unit'       => $this->front_model->get_all_unit()
+          // get detail by id pengguna
+      );
 
-    	$data['tahun'] = $this->keg->getTahunKegiatan();
-		// $data['getAllKegiatan'] = $this->keg->getAllKegiatan();
-		// print_r($data['getAllKegiatan']); die();
+       $data['tahun'] = $this->keg->getTahunKegiatan(); 
 
-    	$this->load->view('template/header', $data, FALSE);
-    	$this->load->view('template/content', $data, FALSE);
-    	$this->load->view('template/footer', $data, FALSE);
+       $this->load->view('template/header', $data, FALSE);
+       $this->load->view('template/content', $data, FALSE);
+       $this->load->view('template/footer', $data, FALSE);
+   }
+
+
+   public function add(){
+
+       $data = array(
+          'title' => 'Tambah Pengguna' ,
+          'page'	=> 'master/pengguna_add',
+          'unit'       => $this->front_model->get_all_unit()
+      );
+
+       $data['tahun'] = $this->keg->getTahunKegiatan(); 
+
+       $this->load->view('template/header', $data, FALSE);
+       $this->load->view('template/content', $data, FALSE);
+       $this->load->view('template/footer', $data, FALSE);
+   }
+
+   public function add_proses(){
+
+    $this->form_validation->set_rules('email', 'Email', 'trim|required');
+    $this->form_validation->set_rules('password', 'Password', 'trim|required');
+    $this->form_validation->set_rules('grup_akses', 'Grup Akses', 'trim|required');
+    $this->form_validation->set_rules('unit', 'Unit', 'trim|required');
+    $this->form_validation->set_rules('nama', 'Nama Pengguna', 'trim|required');
+
+    if ($this->form_validation->run()==TRUE) {
+
+        $parameter = array(
+            'username'  => !empty($this->input->post('email')) ? $this->input->post('email') : 0,
+            'password'  => !empty($this->input->post('password')) ? $this->input->post('password') : 0,
+            'id_flow'  => !empty($this->input->post('grup_akses')) ? $this->input->post('grup_akses') : 0,
+            'unit'  => !empty($this->input->post('unit')) ? $this->input->post('unit') : 0,
+            'name'  => !empty($this->input->post('nama')) ? $this->input->post('nama') : 0,
+        );
+        // print_r($this->pengguna_model->create_user($parameter)); die();
+
+        if ($this->pengguna_model->create_user($parameter)) {
+            $this->session->set_flashdata('message', '<div class="alert alert-info"> Berhasil tambah pengguna </div>');
+            redirect('pengguna','refresh');
+        } else {
+            $this->session->set_flashdata('message', '<div class="alert alert-error"> Pengguna tidak berhasil disimpan. </div>');
+            redirect('pengguna','refresh');
+        }
+
+    } else {
+        redirect('pengguna','refresh');
     }
+
+
+}
 
 }
 
