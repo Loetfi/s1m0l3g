@@ -6,7 +6,7 @@ class Front_model extends CI_Model {
 	public function get_all_unit()
 	{
 		try {
-			return $this->db->query("SELECT * from unit where is_parent = 0 order by position asc")->result();
+			return $this->db->query("SELECT * from unit where is_parent = 0  and status = 1 order by position asc")->result();
 		} catch (Exception $e) {
 			return $this->db->_error_message();
 		}
