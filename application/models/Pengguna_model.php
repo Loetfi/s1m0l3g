@@ -3,10 +3,36 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Pengguna_model extends CI_Model { 
 
+    // add pengguna 
+
+    public function create_user($parameter=array())
+    {
+        try {
+
+            $insert = array(
+                'username' => $parameter['username'], 
+                'password' => sha1($parameter['password']), 
+                'status'    => 1,
+                'name' => $parameter['name'],
+                'sub_sector' => $parameter['unit'], 
+                'id_flow' => $parameter['id_flow'],
+                'email' => $parameter['username']
+            );
+            $this->db->insert('login', $insert);
+            if ($this->db->affected_rows()) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (Exception $e) {
+            return $this->db->_error_message();
+        }
+    }
+
     // _get_datatables_query
     public function datatable($table , $column_order = array() , $column_search = array() , $orderin = array(), $id_flow, $login_id)
     {   
-      
+
       $this->db->select('a.login_id, a.username, a.name , a.sub_sector, a.id_flow, a.status');
       $this->db->from('login a');
       // $this->db->join('login b','a.cuser = b.login_id','LEFT');

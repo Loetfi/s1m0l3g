@@ -18,6 +18,7 @@
 				</div>
 				<!-- /.box-header -->
 				<div class="box-body">
+					<?php echo @$message; ?>
 					<table id="datatables" class="table table-bordered table-hover">
 						<thead>
 							<tr>
