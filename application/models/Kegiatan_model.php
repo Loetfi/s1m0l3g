@@ -77,7 +77,7 @@ class Kegiatan_model extends CI_Model {
 			,abstraksi
 			,nama_unit
 			,url_img
-			,status
+			,k.status
 			,k.cdate
 			,k.cuser
 			,k.mdate
