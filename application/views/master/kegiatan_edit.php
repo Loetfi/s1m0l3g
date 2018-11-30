@@ -3,6 +3,13 @@
 	<h1>
 		<?php echo @$title; ?>
 	</h1>
+	
+	<ol class="breadcrumb">
+		<li><a href="#"><i class="fa fa-dashboard"></i> Database</a></li>
+		<li><a href="#">Daftar</a></li>
+		<li><a href="#">Detail</a></li>
+		<li class="active">Edit Regulasi</li>
+	</ol>
 </section>
 
 <!-- Main content -->
@@ -11,7 +18,7 @@
 		<div class="col-md-6">
 			<div class="box">
 				<div class="box-header">
-					<h3 class="box-title">Detail Kegiatan</h3>
+					<h3 class="box-title">Detail</h3>
 					<div class="box-tools pull-right">
 						<a href="<?php echo site_url($backUrl); ?>" class="btn btn-box-tool"><i class="fa fa-arrow-left"></i></a>
 						<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
@@ -22,27 +29,27 @@
 					<input type="hidden" name="id_keg" id="id_keg" value="<?php echo @$detail['id_keg']; ?>">
 					<table class="table table-bordered">
 						<tr>
-							<th width="200px">nama_keg</th>
+							<th width="200px">Nama</th>
 							<td><?php echo @$detail['nama_keg']; ?></td>
 						</tr>
 						<tr>
-							<th>tahun</th>
+							<th>Tahun Awal</th>
 							<td><?php echo @$detail['tahun']; ?></td>
 						</tr>
 						<tr>
-							<th>abstraksi</th>
+							<th>Abstraksi</th>
 							<td><p><?php echo @$detail['abstraksi']; ?></p></td>
 						</tr>
 						<tr>
-							<th>status</th>
+							<th>Status</th>
 							<td><?php echo @$detail['status']; ?></td>
 						</tr>
 						<tr>
-							<th>cdate</th>
+							<th>Tgl Input</th>
 							<td><?php echo date('d F Y H:i:s',@$detail['cdate']); ?></td>
 						</tr>
 						<tr>
-							<th>mdate</th>
+							<th>Update Terakhir</th>
 							<td><?php echo ((int)$detail['mdate'] > 0 ? date('d F Y H:i:s',@$detail['mdate']) : ''); ?></td>
 						</tr>
 					</table>
@@ -55,7 +62,7 @@
 		<div class="col-md-6">
 			<div class="box">
 				<div class="box-header">
-					<h3 class="box-title">Log Target Kegiatan</h3>
+					<h3 class="box-title">Log Target</h3>
 					<div class="box-tools pull-right">
 						<a href="<?php echo site_url($backUrl); ?>" class="btn btn-box-tool"><i class="fa fa-arrow-left"></i></a>
 						<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
@@ -92,7 +99,7 @@
 		<div class="col-xs-6">
 			<div class="box">
 				<div class="box-header">
-					<h3 class="box-title">Form Edit Kegiatan</h3>
+					<h3 class="box-title">Form Edit</h3>
 					<div class="box-tools pull-right">
 						<a href="<?php echo site_url($backUrl); ?>" class="btn btn-box-tool"><i class="fa fa-arrow-left"></i></a>
 						<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
@@ -103,21 +110,21 @@
 				<form action="#<?php echo site_url('kegiatan/editProcess'); ?>" method="POST" id="editKegiatanForm" class="form-horizontal" enctype="multipart/form-data" target="_blank">
 					<div class="box-body">
 						<div class="form-group">
-							<label for="nama_keg" class="col-sm-4 control-label">nama_keg</label>
+							<label for="nama_keg" class="col-sm-4 control-label">Nama</label>
 							<div class="col-sm-8">
-								<input type="text" class="form-control" id="nama_keg" placeholder="nama_keg" value="<?php echo @$detail['nama_keg']; ?>" required>
+								<input type="text" class="form-control" id="nama_keg" placeholder="Nama" value="<?php echo @$detail['nama_keg']; ?>" required>
 							</div>
 						</div>
 						
 						<div class="form-group">
-							<label for="abstraksi" class="col-sm-4 control-label">abstraksi</label>
+							<label for="abstraksi" class="col-sm-4 control-label">Abstraksi</label>
 							<div class="col-sm-8">
 								<textarea class="form-control" id="abstraksi" placeholder="abstraksi" required><?php echo @$detail['abstraksi']; ?></textarea>
 							</div>
 						</div>
 						
 						<div class="form-group">
-							<label for="status" class="col-sm-4 control-label">Status Kegiatan</label>
+							<label for="status" class="col-sm-4 control-label">Status</label>
 							<div class="col-sm-8">
 								<select name="status" class="form-control" id="status" placeholder="status" required>
 									<option value="">-Pilih-</option>
@@ -143,7 +150,7 @@
 		<div class="col-xs-6">
 			<div class="box">
 				<div class="box-header">
-					<h3 class="box-title">Form Log Target Kegiatan</h3>
+					<h3 class="box-title">Form Log Target</h3>
 					<div class="box-tools pull-right">
 						<a href="<?php echo site_url($backUrl); ?>" class="btn btn-box-tool"><i class="fa fa-arrow-left"></i></a>
 						<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
@@ -154,9 +161,10 @@
 				<form action="#<?php echo site_url('kegiatan/addTarget'); ?>" method="POST" id="addLogTargetForm" class="form-horizontal" enctype="multipart/form-data" target="_blank">
 					<div class="box-body">
 						<div class="form-group">
-							<label for="status" class="col-sm-4 control-label">Status Kegiatan</label>
+							<label for="status" class="col-sm-4 control-label">Status Target</label>
 							<div class="col-sm-8">
 								<select name="status" class="form-control" id="statusTarget" placeholder="status" required>
+									<option value="Aktif">Aktif</option>
 									<option value="Pasif">Pasif</option>
 									<option value="Selesai">Selesai</option>
 									<option value="Luncuran">Luncuran</option>

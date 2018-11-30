@@ -72,6 +72,7 @@ class Kegiatan_model extends CI_Model {
 		
 		$sql = "SELECT  
 			id_keg
+			,k.id_unit
 			,nama_keg
 			,tahun
 			,abstraksi

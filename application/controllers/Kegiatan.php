@@ -16,7 +16,7 @@ class Kegiatan extends CI_Controller {
 
 	public function index(){
 		$data = array(
-			'title' => 'Master Kegiatan' ,
+			'title' => 'Master Regulasi' ,
 			'page'	=> 'master/kegiatan'
 		);
 		
@@ -31,7 +31,7 @@ class Kegiatan extends CI_Controller {
 	public function listing($idUnit){
 		$detailUnit = $this->front_model->detail_unit($idUnit);
 		$data = array(
-			'title' => 'Master Kegiatan '.@$detailUnit['nama_unit'],
+			'title' => 'Master Regulasi '.@$detailUnit['nama_unit'],
 			'page'	=> 'master/kegiatan',
 			'idUnit'=> $idUnit,
 			'backUrl'=> 'database'
@@ -53,7 +53,7 @@ class Kegiatan extends CI_Controller {
 		
 		$detailUnit = $this->front_model->detail_unit($idUnit);
 		$data = array(
-			'title' => 'Tambah Master Kegiatan '.@$detailUnit['nama_unit'],
+			'title' => 'Tambah Master Regulasi '.@$detailUnit['nama_unit'],
 			'page'	=> 'master/kegiatan_add',
 			'idUnit'=> $idUnit,
 			'backUrl'=> 'kegiatan/listing/'.$idUnit
@@ -122,7 +122,7 @@ class Kegiatan extends CI_Controller {
 	
 	function detail($idUnit, $idKeg){
 		$data = array(
-			'title' => 'Detail Master Kegiatan' ,
+			'title' => 'Detail Master Regulasi' ,
 			'page'	=> 'master/kegiatan_detail' ,
 			'idUnit'=> $idUnit,
 			'backUrl'=> 'kegiatan/listing/'.$idUnit
@@ -186,10 +186,10 @@ class Kegiatan extends CI_Controller {
 	function addLog($idUnit, $idKeg){
 		$detailUnit = $this->front_model->detail_unit($idUnit);
 		$data = array(
-			'title' => 'Tambah Log Kegiatan '.@$detailUnit['nama_unit'] ,
+			'title' => 'Tambah Kegiatan Regulasi '.@$detailUnit['nama_unit'] ,
 			'page'	=> 'master/kegiatan_log',
 			'idUnit'=> $idUnit,
-			'backUrl'=> 'kegiatan/listing/'.$idUnit
+			'backUrl'=> 'kegiatan/detail/'.$idUnit.'/'.$idKeg
 		);
 		
 		$data['detail'] = $this->keg->detail($idKeg, $idUnit);
@@ -302,9 +302,9 @@ class Kegiatan extends CI_Controller {
 			redirect(site_url('kegiatan/listing/'.$idUnit));
 		
 		$data = array(
-			'title' => 'Edit Kegiatan' ,
+			'title' => 'Edit Regulasi' ,
 			'page'	=> 'master/kegiatan_edit',
-			'backUrl'=> 'kegiatan/listing/'.$idUnit
+			'backUrl'=> 'kegiatan/detail/'.$idUnit.'/'.$idKeg
 		);
 		
 		$data['detail'] = $this->keg->detail($idKeg, $idUnit);

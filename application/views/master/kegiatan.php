@@ -16,7 +16,7 @@
 				<div class="box-header">
 					
 					<?php if ($this->session->userdata('username')){ ?>
-					<a href="<?php echo site_url('kegiatan/add/'.$idUnit); ?>" class="btn btn-success"><i class="fa fa-plus"></i> Tambah Kegiatan</a>
+					<a href="<?php echo site_url('kegiatan/add/'.$idUnit); ?>" class="btn btn-success"><i class="fa fa-plus"></i> Tambah Regulasi</a>
 					<?php } ?>
 					
 					<div class="box-tools pull-right">
@@ -30,7 +30,7 @@
 					<table id="thisDataTable" class="table table-bordered table-hover">
 						<thead>
 							<tr>
-								<th>ID</th>
+								<th>No</th>
 								<th>Tahun</th>
 								<th>Nama Kegiatan</th>
 								<th>Target</th>
@@ -42,9 +42,9 @@
 							</tr>
 						</thead>
 						<tbody>
-							<?php foreach($getAllKegiatan as $row){ ?>
+							<?php $no=0; foreach($getAllKegiatan as $row){ ?>
 							<tr>
-								<td><?php echo @$row['id_keg']; ?></td>
+								<td><?php echo ++$no; ?></td>
 								<td><?php echo @$row['tahun']; ?></td>
 								<td><?php echo @$row['nama_keg']; ?></td>
 								<td><?php echo @$row['tahun_pengajuan'].' B'.str_pad($row['id_target'],2,'0',STR_PAD_LEFT); ?></td>
@@ -54,10 +54,10 @@
 								<td><?php echo @$row['status']; ?></td>
 								<td>
 									<a href="<?php echo site_url('kegiatan/detail/'.$row['id_unit'].'/'.$row['id_keg']); ?>" class="btn btn-xs btn-info" title="Detail"><i class="fa fa-eye"></i></a>
-									<?php if ($this->session->userdata('username')){ ?>
+									<!-- <?php if ($this->session->userdata('username')){ ?>
 									<a href="<?php echo site_url('kegiatan/edit/'.$row['id_unit'].'/'.$row['id_keg']); ?>" class="btn btn-xs btn-warning" title="Edit"><i class="fa fa-pencil"></i></a>
 									<a href="<?php echo site_url('kegiatan/addlog/'.$row['id_unit'].'/'.$row['id_keg']); ?>" class="btn btn-xs btn-success" title="Tambah Log"><i class="fa fa-plus"></i></a>
-									<?php } ?>
+									<?php } ?> -->
 								</td>
 							</tr>
 							<?php } ?>

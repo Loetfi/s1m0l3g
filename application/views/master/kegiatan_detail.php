@@ -11,7 +11,7 @@
 		<div class="col-md-6">
 			<div class="box">
 				<div class="box-header">
-					<h3 class="box-title">Detail Kegiatan</h3>
+					<h3 class="box-title">Detail</h3>
 					<div class="box-tools pull-right">
 						<a href="<?php echo site_url($backUrl); ?>" class="btn btn-box-tool"><i class="fa fa-arrow-left"></i></a>
 						<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
@@ -21,29 +21,38 @@
 				<div class="box-body">
 					<table class="table table-bordered">
 						<tr>
-							<th width="200px">nama_keg</th>
+							<th width="200px">Nama</th>
 							<td><?php echo @$detail['nama_keg']; ?></td>
 						</tr>
 						<tr>
-							<th>tahun</th>
+							<th>Tahun Awal</th>
 							<td><?php echo @$detail['tahun']; ?></td>
 						</tr>
 						<tr>
-							<th>abstraksi</th>
+							<th>Abstraksi</th>
 							<td><p><?php echo @$detail['abstraksi']; ?></p></td>
 						</tr>
 						<tr>
-							<th>status</th>
+							<th>Status</th>
 							<td><?php echo @$detail['status']; ?></td>
 						</tr>
 						<tr>
-							<th>cdate</th>
+							<th>Tgl Input</th>
 							<td><?php echo date('d F Y H:i:s',@$detail['cdate']); ?></td>
 						</tr>
 						<tr>
-							<th>mdate</th>
+							<th>Update Terakhir</th>
 							<td><?php echo ((int)$detail['mdate'] > 0 ? date('d F Y H:i:s',@$detail['mdate']) : ''); ?></td>
 						</tr>
+						<?php if ($this->session->userdata('username')){ ?>
+						<tr>
+							<th></th>
+							<td>
+								<a href="<?php echo site_url('kegiatan/edit/'.$detail['id_unit'].'/'.$detail['id_keg']); ?>" class="btn btn-warning" title="Edit"><i class="fa fa-pencil"></i> Edit</a>
+								<a href="<?php echo site_url('kegiatan/addlog/'.$detail['id_unit'].'/'.$detail['id_keg']); ?>" class="btn btn-success" title="Tambah Log"><i class="fa fa-plus"></i> Tambah Kegiatan</a>
+							</td>
+						</tr>
+						<?php } ?>
 					</table>
 				</div>
 				<!-- /.box-body -->
@@ -54,7 +63,7 @@
 		<div class="col-md-6">
 			<div class="box">
 				<div class="box-header">
-					<h3 class="box-title">Log Target Kegiatan</h3>
+					<h3 class="box-title">Log Target</h3>
 					<div class="box-tools pull-right">
 						<a href="<?php echo site_url($backUrl); ?>" class="btn btn-box-tool"><i class="fa fa-arrow-left"></i></a>
 						<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
