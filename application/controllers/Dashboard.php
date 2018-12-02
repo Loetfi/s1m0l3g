@@ -47,7 +47,8 @@ class Dashboard extends CI_Controller {
 			'data' => $dataNilai,
 		);
 		
-		// progress kegiatan
+		// target kegiatan
+		// $rekapTargetUnit
 		
 		$this->load->view('template/header', $data, FALSE);
 		$this->load->view('template/content', $data, FALSE);
