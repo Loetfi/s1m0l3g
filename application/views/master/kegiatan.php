@@ -6,6 +6,7 @@
 	<h1>
 		<?php echo @$title; ?>
 	</h1>
+	<?php echo $this->breadcrumbs->show(); ?>
 </section>
 
 <!-- Main content -->

@@ -3,13 +3,7 @@
 	<h1>
 		<?php echo @$title; ?>
 	</h1>
-	
-	<ol class="breadcrumb">
-		<li><a href="#"><i class="fa fa-dashboard"></i> Database</a></li>
-		<li><a href="#">Daftar</a></li>
-		<li><a href="#">Detail</a></li>
-		<li class="active">Edit Regulasi</li>
-	</ol>
+	<?php echo $this->breadcrumbs->show(); ?>
 </section>
 
 <!-- Main content -->

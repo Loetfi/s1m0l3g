@@ -1,8 +1,28 @@
+<style>
+.accrKegiatan .box-title {
+	cursor: pointer;
+	color: #3c8dbc;
+}
+.accrKegiatan .box-title:hover {
+	color: #72afd2;
+}
+.iconAnggota{
+	width: 30px;
+    height: 30px;
+    font-size: 15px;
+    line-height: 30px;
+    color: #666;
+    background: #d2d6de;
+    border-radius: 50%;
+    text-align: center;
+}
+</style>
 <!-- Content Header (Page header) -->
 <section class="content-header">
 	<h1>
 		<?php echo @$title; ?>
 	</h1>
+	<?php echo $this->breadcrumbs->show(); ?>
 </section>
 
 <!-- Main content -->
@@ -103,8 +123,10 @@
 	<div class="row">
 		<div class="col-md-12">
 			<!-- The time line -->
+			<?php if ($allLogKegiatan) { ?>
+			
 			<ul class="timeline">
-				<?php foreach($allLogKegiatan as $row){ ?>
+				<?php foreach($allLogKegiatanTimeline as $row){ ?>
 				<li class="time-label">
 					<span class="bg-red">
 						<i class="fa fa-calendar"></i> <?php echo $row['tanggal']; ?><br>
@@ -133,14 +155,49 @@
 					<div class="timeline-item">
 						<h3 class="timeline-header no-border">
 							<?php foreach($allLogAnggota[$row['id_log']] as $anggota){ ?>
-							<?php echo $anggota['jabatan']; ?>: <a href="#"><?php echo $anggota['nama_peserta']; ?></a><br>
+							<?php echo $anggota['jabatan']; ?>: <a href="#"><?php echo $anggota['nama_peserta']; ?></a>&nbsp;;&nbsp;&nbsp;&nbsp;
 							<?php } ?>
 						</h3>
 					</div>
 				</li>
 				<?php } ?>
-				
 			</ul>
+			
+			<?php if ($allLogKegiatanAccordion) {
+				foreach($allLogKegiatanAccordion as $row){ ?>
+			<div class="box collapsed-box accrKegiatan">
+				<div class="box-header">
+					<h3 class="box-title" data-widget="collapse"><b><?php echo $row['judul_kegiatan']; ?></b></h3>
+					<div class="box-tools pull-right">
+						<span class="time"><i class="fa fa-map-marker"></i> <?php echo $row['lokasi']; ?>&nbsp;&nbsp;&nbsp;</span>
+						<span class="time"><i class="fa fa-calendar"></i> <?php echo $row['tanggal']; ?>&nbsp;&nbsp;&nbsp;</span>
+						<span class="time"><i class="fa fa-clock-o"></i> <?php echo $row['waktu']; ?>&nbsp;&nbsp;&nbsp;</span>
+						
+						<button type="button" class="btn btn-box-tool" data-widget="collapse"> <i class="fa fa-plus"></i> </button>
+					</div>
+				</div>
+				<div class="box-body" style="display: none;">
+					<pre><?php echo $row['hasil_kegiatan']; ?></pre>
+					<div>
+						<i class="fa fa-user bg-aqua iconAnggota"></i>&nbsp;&nbsp;&nbsp;
+						<?php foreach($allLogAnggota[$row['id_log']] as $anggota){ ?>
+						<?php echo $anggota['jabatan']; ?>: <a href="#"><?php echo $anggota['nama_peserta']; ?></a>&nbsp;;&nbsp;&nbsp;&nbsp;
+						<?php } ?>
+					</div>
+				</div>
+				<div class="box-footer">
+					<?php if ($row['file']) foreach($row['file'] as $rowFile){ ?>
+					<a href="<?php echo site_url('kegiatan/downloadFile/'.@$detail['id_keg'].'/'.$row['id_log'].'/'.$rowFile['namaFile']); ?>" class="btn btn-info btn-xs">
+						<i class="fa fa-cloud-download"></i> <?php echo $rowFile['namaFileAsli']; ?>
+					</a>
+					<?php } ?>
+				</div>
+			</div>
+				<?php 
+				} 
+			} ?>
+			
+			<?php } ?>
 		</div>
 		<!-- /.col -->
 	</div>

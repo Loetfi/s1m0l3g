@@ -116,5 +116,17 @@ $(function(){
 		return false;
 	});
 	
+	$('#addDaftarHadir').click(function(){
+		html = '<tr>';
+		html += '<td><input type="text" name="jabatan[]" class="form-control" placeholder="nama jabatan"></td>';
+		html += '<td><input type="text" name="nama_peserta[]" class="form-control" placeholder="nama peserta"></td>';
+		html += '</tr>';
+		$('#tblDaftarHadir tbody tr:last').after(html);
+	});
+	
+	$('#addFilePendukung').click(function(){
+		html = '<input type="file" name="uploadfile[]" class="form-control" placeholder="file_pendukung">';
+		$('#formBerkasPendukung').append(html);
+	});
 });
 </script>

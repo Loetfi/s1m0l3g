@@ -8,9 +8,15 @@ class Kegiatan extends CI_Controller {
 		parent::__construct();
 		$this->load->helper('url');
 		$this->load->library('form_validation');
+		$this->load->library('breadcrumbs');
 		$this->load->model('auth_model','auth');
 		$this->load->model('kegiatan_model','keg');
 		$this->load->model('front_model');
+		
+		$this->breadcrumbs->push('Database', 'database');
+		// $this->breadcrumbs->push('Daftar', 'permohonan');
+		// $this->breadcrumbs->push('Detail', 'permohonan');
+		// $this->breadcrumbs->push('Edit Regulasi', 'permohonan');
 	}
 
 
@@ -29,6 +35,7 @@ class Kegiatan extends CI_Controller {
 		$this->load->view('template/footer', $data, FALSE);
 	}
 	public function listing($idUnit){
+		
 		$detailUnit = $this->front_model->detail_unit($idUnit);
 		$data = array(
 			'title' => 'Master Regulasi '.@$detailUnit['nama_unit'],
@@ -40,6 +47,8 @@ class Kegiatan extends CI_Controller {
 		$data['tahun'] = $this->keg->getTahunKegiatan();
 		$data['getAllKegiatan'] = $this->keg->getAllKegiatan($idUnit);
 		// print_r($data['getAllKegiatan']); die();
+		
+		$this->breadcrumbs->push('Daftar Regulasi', '#');
 		
 		$this->load->view('template/header', $data, FALSE);
 		$this->load->view('template/content', $data, FALSE);
@@ -58,6 +67,9 @@ class Kegiatan extends CI_Controller {
 			'idUnit'=> $idUnit,
 			'backUrl'=> 'kegiatan/listing/'.$idUnit
 		);
+		
+		$this->breadcrumbs->push('Daftar Regulasi', 'kegiatan/listing/'.$idUnit);
+		$this->breadcrumbs->push('Tambah Regulasi '.@$detailUnit['nama_unit'], '#');
 		
 		$this->load->view('template/header', $data, FALSE);
 		$this->load->view('template/content', $data, FALSE);
@@ -138,6 +150,8 @@ class Kegiatan extends CI_Controller {
 		$idxLog = 0;
 		$arrIdLog = array();
 		@$allLogKegiatan = array();
+		@$allLogKegiatanTimeline = array();
+		@$allLogKegiatanAccordion = array();
 		$logKegiatan = $this->keg->logKegiatan($idKeg);
 		foreach($logKegiatan as $row){
 			$id_log = $row['id_log'];
@@ -161,9 +175,17 @@ class Kegiatan extends CI_Controller {
 			$allLogKegiatan[$idxLog]['tanggal'] = @$tanggal;
 			$allLogKegiatan[$idxLog]['waktu'] = @$waktu;
 			$allLogKegiatan[$idxLog]['file'] = @$file;
+			
+			if ($idxLog < 3)
+				$allLogKegiatanTimeline[] = $allLogKegiatan[$idxLog];
+			else 
+				$allLogKegiatanAccordion[] = $allLogKegiatan[$idxLog];
+			
 			$idxLog++;
 		}
 		$data['allLogKegiatan'] = @$allLogKegiatan;
+		$data['allLogKegiatanTimeline'] = @$allLogKegiatanTimeline;
+		$data['allLogKegiatanAccordion'] = @$allLogKegiatanAccordion;
 		// print_r(@$allLogKegiatan); die();
 		
 		$idxLog = 0;
@@ -180,6 +202,10 @@ class Kegiatan extends CI_Controller {
 		// print_r($allLogAnggota); die();
 		
 		// die();
+		
+		$this->breadcrumbs->push('Daftar Regulasi', 'kegiatan/listing/'.$idUnit);
+		$this->breadcrumbs->push('Detail Regulasi', '#');
+		
 		$this->load->view('template/header', $data, FALSE);
 		$this->load->view('template/content', $data, FALSE);
 		$this->load->view('template/footer', $data, FALSE);
@@ -199,6 +225,10 @@ class Kegiatan extends CI_Controller {
 			redirect('kegiatan/listing/'.$idUnit,'refresh');
 		
 		$data['logTarget'] = $this->keg->logTarget($idKeg);
+		
+		$this->breadcrumbs->push('Daftar Regulasi', 'kegiatan/listing/'.$idUnit);
+		$this->breadcrumbs->push('Detail Regulasi', 'kegiatan/detail/'.$idUnit.'/'.$idKeg);
+		$this->breadcrumbs->push('Tambah Kegiatan', '#');
 		
 		$this->load->view('template/header', $data, FALSE);
 		$this->load->view('template/content', $data, FALSE);
@@ -313,6 +343,10 @@ class Kegiatan extends CI_Controller {
 		if (!$data['detail'])
 			redirect('kegiatan/listing/'.$idUnit,'refresh');
 		$data['logTarget'] = $this->keg->logTarget($idKeg);
+		
+		$this->breadcrumbs->push('Daftar Regulasi', 'kegiatan/listing/'.$idUnit);
+		$this->breadcrumbs->push('Detail Regulasi', 'kegiatan/detail/'.$idUnit.'/'.$idKeg);
+		$this->breadcrumbs->push('Edit Regulasi', '#');
 		
 		$this->load->view('template/header', $data, FALSE);
 		$this->load->view('template/content', $data, FALSE);

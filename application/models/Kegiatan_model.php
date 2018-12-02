@@ -143,7 +143,7 @@ class Kegiatan_model extends CI_Model {
 			,mdate
 		FROM kegiatan_log
 		where id_keg = $idKeg
-		order by tanggal DESC
+		order by tanggal DESC, id_log DESC
 		";
 		$resutl = $this->db->query($sql)->result_array();
 		return $resutl;

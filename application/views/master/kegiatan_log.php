@@ -3,6 +3,7 @@
 	<h1>
 		<?php echo @$title; ?>
 	</h1>
+	<?php echo $this->breadcrumbs->show(); ?>
 </section>
 
 <!-- Main content -->
@@ -121,34 +122,42 @@
 								<div class="form-group">
 									<label for="file_pendukung" class="col-sm-4 control-label">Ffile Pendukung</label>
 									<div class="col-sm-8">
+										<div id="formBerkasPendukung">
 										<input type="file" name="uploadfile[]" class="form-control" placeholder="file_pendukung">
-										<input type="file" name="uploadfile[]" class="form-control" placeholder="file_pendukung">
-										<input type="file" name="uploadfile[]" class="form-control" placeholder="file_pendukung">
-										<input type="file" name="uploadfile[]" class="form-control" placeholder="file_pendukung">
+										</div>
+										<div>
+											<button type="button" class="btn btn-default btn-sm pull-right" id="addFilePendukung"><i class="fa fa-plus"></i> Tambah File Pendukung</button>
+										</div>
 									</div>
 								</div>
 							</div>
 							<div class="col-sm-6">
-								<table class="table">
+								<table class="table" id="tblDaftarHadir">
+									<thead>
 									<tr>
 										<th colspan="2" style="text-align: center;">Daftar Hadir</th>
 									</tr>
 									<tr>
-										<th>Jabatan</th>
+										<th>Posisi/Sebagai</th>
 										<th>Nama Peserta</th>
 									</tr>
+									</thead>
+									<tbody>
 									<tr>
-										<td><input type="text" name="jabatan[]" class="form-control" placeholder="nama jabatan"></td>
+										<td><input type="text" name="jabatan[]" class="form-control" placeholder="nama posisi"></td>
 										<td><input type="text" name="nama_peserta[]" class="form-control" placeholder="nama peserta"></td>
 									</tr>
 									<tr>
-										<td><input type="text" name="jabatan[]" class="form-control" placeholder="nama jabatan"></td>
+										<td><input type="text" name="jabatan[]" class="form-control" placeholder="nama posisi"></td>
 										<td><input type="text" name="nama_peserta[]" class="form-control" placeholder="nama peserta"></td>
 									</tr>
+									</tbody>
+									<tfoot>
 									<tr>
-										<td><input type="text" name="jabatan[]" class="form-control" placeholder="nama jabatan"></td>
-										<td><input type="text" name="nama_peserta[]" class="form-control" placeholder="nama peserta"></td>
+										<td></td>
+										<td><button type="button" class="btn btn-default btn-sm pull-right" id="addDaftarHadir"><i class="fa fa-plus"></i> Tambah Daftar Hadir</button></td>
 									</tr>
+									</tfoot>
 								</table>
 							</div>
 						</div>
