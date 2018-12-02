@@ -30,15 +30,17 @@ class Pengguna_model extends CI_Model {
     }
 
     // _get_datatables_query
-    public function datatable($table , $column_order = array() , $column_search = array() , $orderin = array(), $id_flow, $login_id)
+    public function datatable($table , $column_order = array() , $column_search = array() , $orderin = array(), $id_flow, $sub_sector)
     {   
+      
 
       $this->db->select('a.login_id, a.username, a.name , a.sub_sector, a.id_flow, a.status, b.nama_unit, c.nama_flow');
       $this->db->from('login a');
       $this->db->join('unit b','a.sub_sector = b.id_unit','LEFT');
       $this->db->join('flow c','a.id_flow = c.id_flow','LEFT');
-      // $this->db->where("a.cuser is not null and submit_doc = 1 and sub_sector = 'migas'");
-      // $this->db->group_by('a.id_dokumen');
+      if ($id_flow == 2) {
+          $this->db->where('a.sub_sector',$sub_sector);
+      } 
 
       $i = 0;
         foreach ($column_search as $item) // loop column
@@ -74,21 +76,21 @@ class Pengguna_model extends CI_Model {
         }
     }
     
-    function get_datatables($table , $column_order = array() , $column_search = array() , $orderin = array(),$id_flow , $login_id){
-        $this->datatable($table , $column_order , $column_search  , $orderin ,$id_flow , $login_id );
+    function get_datatables($table , $column_order = array() , $column_search = array() , $orderin = array(),$id_flow , $sub_sector){
+        $this->datatable($table , $column_order , $column_search  , $orderin ,$id_flow , $sub_sector );
         if($_POST['length'] != -1)
             $this->db->limit($_POST['length'], $_POST['start']);
         $query = $this->db->get();
         return $query->result();
     }
-    function count_filtered($table , $column_order = array() , $column_search = array() , $orderin = array(), $id_flow , $login_id){
-        $this->datatable($table , $column_order , $column_search  , $orderin , $id_flow , $login_id);
+    function count_filtered($table , $column_order = array() , $column_search = array() , $orderin = array(), $id_flow , $sub_sector){
+        $this->datatable($table , $column_order , $column_search  , $orderin , $id_flow , $sub_sector);
         $query = $this->db->get();
         return $query->num_rows();
     }
-    function count_all($table,$login_id){
+    function count_all($table,$sub_sector){
         $this->db->from($table);
-        // $this->db->where('cuser', $login_id);
+        // $this->db->where('cuser', $sub_sector);
         return $this->db->count_all_results();
     }	
     

@@ -15,9 +15,39 @@ class Dashboard extends CI_Controller {
 
 
 	public function index(){
+		$target = $this->db->query("SELECT * from target")->result_array();
+		$aktif = $this->db->query("SELECT  count(c.nama_target) as total ,c.id_target, a.nama_keg, c.nama_target,  b.* from kegiatan a
+			left join kegiatan_target b on a.id_keg = b.id_keg
+			left join target c on b.id_target = c.id_target
+			where b.status = 'aktif'
+			GROUP BY c.nama_target
+			order by nama_target asc")->result_array();
+
+		foreach ($target as $targets) {
+			// $targeting[] = $aktif[];
+			$targeting[$targets['nama_target']] = $targets;
+			$targetnya[] = $targets['nama_target'];
+		}
+
+		foreach($aktif as $row){
+			$rekap_aktif[$row['id_target']] = (int)$row['total'];
+		}
+		foreach($target as $row){
+			$total_bulan_target[$row['id_target']] = @$rekap_aktif[$row['id_target']];
+			$rekap_target_selesi[] = @$rekap_aktif[$row['id_target']];
+		}
+
+		// print_r($rekap_target);
+		// print_r($targetnya);
+
+		// die();
 		$data = array(
 			'title' => 'Dashboard Monitoring Pemrakarsa' ,
-			'page'	=> 'dashboard/dashboard'
+			'page'	=> 'dashboard/dashboard',
+			'target_pemrakarsa' => array(
+				'categories' => $targetnya,
+				'selesai' => $rekap_target_selesi,
+			)
 		);
 		
 		// database

@@ -17,7 +17,7 @@
         </a>
       </li>  
 
-      <?php if (@$this->session->userdata('id_flow') == 1) { ?>
+      <?php if (@$this->session->userdata('id_flow') == 1 OR @$this->session->userdata('id_flow') == 2) { ?>
         <li class="header">Admin Menu</li>
         <li class="<?php echo $this->uri->segment(1) === 'pengguna' ? 'active' : '' ; ?>">
           <a href="<?php echo site_url('pengguna') ?>">

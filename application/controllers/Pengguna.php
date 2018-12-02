@@ -20,7 +20,7 @@ class Pengguna extends CI_Controller {
       $data = array(
        'title'      => 'Tambah Pengguna' ,
        'page'	     => 'master/pengguna',
-       'url'	     => base_url('pengguna/data/1/1'),
+       'url'	     => base_url('pengguna/data/'.@$this->session->userdata('id_flow').'/'.@$this->session->userdata('sub_sector')),
        'detail'     => base_url('pengguna/detail'),
        'edit'       => base_url('pengguna/edit'),
        'delete'     => base_url('pengguna/delete'),
@@ -38,7 +38,7 @@ class Pengguna extends CI_Controller {
       $this->load->view('template/footer', $data, FALSE);
   }
 
-  public function data($id_flow , $login_id)
+  public function data($id_flow , $sub_sector)
   {
       $this->load->helper('backend');
 
@@ -52,7 +52,7 @@ class Pengguna extends CI_Controller {
 
 
 
-    	$list 	= $this->lists->get_datatables($table , $column_order , $column_search , $orderin, $id_flow , $login_id);
+    	$list 	= $this->lists->get_datatables($table , $column_order , $column_search , $orderin, $id_flow , $sub_sector);
 
 		// CRUDS Action Role
     	$detail 	= @urldecode($this->input->input_stream('detail'));
@@ -84,8 +84,8 @@ class Pengguna extends CI_Controller {
 
         $output = array(
           "draw" => $_POST['draw'],
-          "recordsTotal" => $this->lists->count_all($table, $id_flow , $login_id),
-          "recordsFiltered" => $this->lists->count_filtered($table , $column_order , $column_search , $orderin, $id_flow , $login_id),
+          "recordsTotal" => $this->lists->count_all($table, $id_flow , $sub_sector),
+          "recordsFiltered" => $this->lists->count_filtered($table , $column_order , $column_search , $orderin, $id_flow , $sub_sector),
           "data" => $data,
       );
    		//output to json format 
