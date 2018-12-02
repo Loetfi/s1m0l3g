@@ -48,8 +48,10 @@
 						<tr>
 							<th></th>
 							<td>
+								<?php if ($access_edit) { ?>
 								<a href="<?php echo site_url('kegiatan/edit/'.$detail['id_unit'].'/'.$detail['id_keg']); ?>" class="btn btn-warning" title="Edit"><i class="fa fa-pencil"></i> Edit</a>
 								<a href="<?php echo site_url('kegiatan/addlog/'.$detail['id_unit'].'/'.$detail['id_keg']); ?>" class="btn btn-success" title="Tambah Log"><i class="fa fa-plus"></i> Tambah Kegiatan</a>
+								<?php } ?>
 							</td>
 						</tr>
 						<?php } ?>

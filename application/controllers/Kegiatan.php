@@ -120,12 +120,14 @@ class Kegiatan extends CI_Controller {
 		echo json_encode($data);
 	}
 	
-	function detail($idUnit, $idKeg){
+	function detail($idUnit = null , $idKeg = null){
+		
 		$data = array(
 			'title' => 'Detail Master Regulasi' ,
 			'page'	=> 'master/kegiatan_detail' ,
 			'idUnit'=> $idUnit,
-			'backUrl'=> 'kegiatan/listing/'.$idUnit
+			'backUrl'=> 'kegiatan/listing/'.$idUnit,
+			'access_edit' => role_access(@$this->session->userdata('id_flow'), @$idUnit)
 		);
 		$data['detail'] = $this->keg->detail($idKeg, $idUnit);
 		if (!$data['detail'])

@@ -33,9 +33,10 @@ class Pengguna_model extends CI_Model {
     public function datatable($table , $column_order = array() , $column_search = array() , $orderin = array(), $id_flow, $login_id)
     {   
 
-      $this->db->select('a.login_id, a.username, a.name , a.sub_sector, a.id_flow, a.status');
+      $this->db->select('a.login_id, a.username, a.name , a.sub_sector, a.id_flow, a.status, b.nama_unit, c.nama_flow');
       $this->db->from('login a');
-      // $this->db->join('login b','a.cuser = b.login_id','LEFT');
+      $this->db->join('unit b','a.sub_sector = b.id_unit','LEFT');
+      $this->db->join('flow c','a.id_flow = c.id_flow','LEFT');
       // $this->db->where("a.cuser is not null and submit_doc = 1 and sub_sector = 'migas'");
       // $this->db->group_by('a.id_dokumen');
 

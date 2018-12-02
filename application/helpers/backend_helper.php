@@ -1,6 +1,24 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
+function role_access($id_flow = null , $sub_sector = null)
+{
+	$ci =& get_instance();
+	
+	if ($ci->session->userdata('id_flow') == 3) { // user biasa
+		$no_edit = FALSE;
+	} elseif ($ci->session->userdata('id_flow') == 2 AND $ci->session->userdata('sub_sector') == $sub_sector ) {
+		$no_edit = TRUE;
+	} elseif ($ci->session->userdata('id_flow') == 1) {
+		$no_edit = TRUE;
+	} else {
+		$no_edit = FALSE;
+	}
+
+	return $no_edit;
+	// print_r($ci->session->all_userdata());
+}
+
 function check_login($referrer_url)
 {
 	$ci =& get_instance();

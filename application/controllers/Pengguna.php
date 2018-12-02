@@ -73,8 +73,8 @@ class Pengguna extends CI_Controller {
     		$row[]	= $d->login_id;
     		$row[] 	= $d->name;
     		$row[]	= $d->username;
-    		$row[]	= $d->id_flow;
-    		$row[]	= $d->sub_sector;
+    		$row[]	= $d->nama_flow;
+    		$row[]	= $d->nama_unit;
     		// $row[]	= '';
             $row[]	= btnStatus($d->status); 
             $row[]	= "<div class='btn-group'>".$ACTdetail." ".$ACTupdate." ".$ACTdelete ."</div>"; 

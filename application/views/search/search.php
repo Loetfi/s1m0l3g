@@ -11,8 +11,8 @@
           <?php foreach ($data->result() as $row) :?>
             <div class="box box-default">
               <div class="box-body">
-                <h5><b><?php echo @$row->nama_keg; ?></b></h5>
-                <p>Awal tahun target terbuat  :<b> <?php echo @$row->tahun; ?> </b>, Unit : <?php echo @$row->nama_unit; ?> </p>
+                <h5><a href="<?php echo site_url('kegiatan/detail/'.@$row->id_unit.'/'.@$row->id_keg) ?>"><b><?php echo @$row->nama_keg; ?></b></a></h5>
+                <p>Awal tahun target terbuat  :<b> <?php echo @$row->tahun; ?> </b>, Unit : <b><?php echo @$row->nama_unit; ?></b> </p>
                 <!-- , Target Realisasi : <span class="label label-info">B6 2019</span>  -->
                 <p>Abstraksi : <i><?php echo @$row->abstraksi; ?>.</i></p>
               </div>

@@ -18,7 +18,7 @@ class Search extends CI_Controller {
 
 	public function index(){
 		//konfigurasi pagination
-        $config['base_url'] = site_url('mahasiswa/index'); //site url
+        $config['base_url'] = site_url('search/index'); //site url
         $config['total_rows'] = $this->db->count_all('kegiatan'); //total row
         $config['per_page'] = 10;  //show record per halaman
         $config["uri_segment"] = 3;  // uri parameter
@@ -26,6 +26,7 @@ class Search extends CI_Controller {
         $config["num_links"] = floor($choice);
  
         // Membuat Style pagination untuk BootStrap v4
+        $config['reuse_query_string'] = true;
       	$config['first_link']       = 'First';
         $config['last_link']        = 'Last';
         $config['next_link']        = 'Next';
