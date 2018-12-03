@@ -36,7 +36,7 @@
       <nav class="navbar navbar-static-top">
         <div class="container">
           <div class="navbar-header">
-            <a href="<?php echo base_url();?>" class="navbar-brand"><b>SIMOLEG KESDM</b></a>
+            <a href="<?php echo base_url('assets/index2.html');?>" class="navbar-brand"><b>SIMOLEG KESDM</b></a>
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse">
               <i class="fa fa-bars"></i>
             </button>
@@ -71,13 +71,12 @@
       <!-- Main content -->
       <section class="content">  
         <div class="col-sm-8">
+          <center>
           <h1>Tentang Simoleg</h1>
-          <p class="text-muted text-justify">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-            consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-            cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-          proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+          <hr>
+          <p class="text-muted" style="font-size: 17px">Simoleg merupakan Sistem Monitoring Legislasi yang dikembangkan oleh Biro Hukum Kementerian Energi dan Sumber Daya Mineral sebagai fasilitas untuk melihat perjalanan kegiatan.
+            </p>
+          </center>
         </div>
         <div class="col-sm-4">
           <form action="<?php echo site_url('auth/proses') ?>" method="post">
