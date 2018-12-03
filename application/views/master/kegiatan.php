@@ -16,7 +16,9 @@
 			<div class="box box-success">
 				<div class="box-header">
 					
-					<?php if ($this->session->userdata('username')){ ?>
+
+
+					<?php if ($access_edit){ ?>
 					<a href="<?php echo site_url('kegiatan/add/'.$idUnit); ?>" class="btn btn-success"><i class="fa fa-plus"></i> Tambah Regulasi</a>
 					<?php } ?>
 					
@@ -28,6 +30,8 @@
 				</div>
 				<!-- /.box-header -->
 				<div class="box-body">
+					<?php echo @$message; ?>
+					
 					<table id="thisDataTable" class="table table-bordered table-hover">
 						<thead>
 							<tr>

@@ -34,14 +34,17 @@ class Kegiatan extends CI_Controller {
 		$this->load->view('template/content', $data, FALSE);
 		$this->load->view('template/footer', $data, FALSE);
 	}
-	public function listing($idUnit){
+	public function listing($idUnit = null){
+		$idUnit = $idUnit > 0 ? $idUnit : redirect('database','refresh');
 		
 		$detailUnit = $this->front_model->detail_unit($idUnit);
 		$data = array(
 			'title' => 'Master Regulasi '.@$detailUnit['nama_unit'],
 			'page'	=> 'master/kegiatan',
 			'idUnit'=> $idUnit,
-			'backUrl'=> 'database'
+			'backUrl'=> 'database',
+			'access_edit' => role_access(@$this->session->userdata('id_flow'), @$idUnit),
+			'message'	=> $this->session->flashdata('message')
 		);
 		
 		$data['tahun'] = $this->keg->getTahunKegiatan();
@@ -55,10 +58,19 @@ class Kegiatan extends CI_Controller {
 		$this->load->view('template/footer', $data, FALSE);
 	}
 	
-	function add($idUnit){
+	function add($idUnit = null){
+		$idUnit = $idUnit > 0 ? $idUnit : redirect('database','refresh');
+
+		if (role_access(@$this->session->userdata('id_flow'), @$idUnit)==FALSE) {
+			$this->session->set_flashdata('message', '<div class="alert alert-warning"> Maaf anda tidak diberikan akses </div>');
+			redirect('kegiatan/listing/'.$idUnit,'refresh');
+			die();
+		}
 		
-		if (!$this->session->userdata('username'))
-			redirect(site_url('kegiatan/listing/'.$idUnit));
+		if (!$this->session->userdata('username')){	
+			
+			redirect(site_url('kegiatan/listing/'.$idUnit ));
+		}
 		
 		$detailUnit = $this->front_model->detail_unit($idUnit);
 		$data = array(
@@ -75,7 +87,9 @@ class Kegiatan extends CI_Controller {
 		$this->load->view('template/content', $data, FALSE);
 		$this->load->view('template/footer', $data, FALSE);
 	}
-	function addProcess($idUnit){
+	function addProcess($idUnit = null){
+		$idUnit = $idUnit > 0 ? $idUnit : redirect('database','refresh');
+
 		$nama_keg = @$_POST['nama_keg'];
 		$tahun_target = @$_POST['tahun_target'];
 		$bulan_target = @$_POST['bulan_target'];
@@ -133,6 +147,7 @@ class Kegiatan extends CI_Controller {
 	}
 	
 	function detail($idUnit = null , $idKeg = null){
+		$idUnit = $idUnit > 0 or $idKeg > 0 ? true : redirect('database','refresh');
 		
 		$data = array(
 			'title' => 'Detail Master Regulasi' ,
@@ -236,7 +251,9 @@ class Kegiatan extends CI_Controller {
 		$this->load->view('template/content', $data, FALSE);
 		$this->load->view('template/footer', $data, FALSE);
 	}
-	function addLogProcess($idUnit){
+	function addLogProcess($idUnit = null){
+		$idUnit = $idUnit > 0 ? $idUnit : redirect('database','refresh');
+		
 		$cdate = time();
 		
 		$id_keg = @$_POST['id_keg'];
@@ -382,7 +399,7 @@ class Kegiatan extends CI_Controller {
 			'message' => 'Berhasil',
 			'data' => array()
 		);
-			
+
 		echo json_encode($data);
 	}
 	function addTarget(){
@@ -410,7 +427,7 @@ class Kegiatan extends CI_Controller {
 			'message' => 'Berhasil',
 			'data' => array()
 		);
-			
+
 		echo json_encode($data);
 	}
 	
@@ -427,7 +444,7 @@ class Kegiatan extends CI_Controller {
 				$namaFileDownload = str_replace(';','',$file_nameasli[$i]);
 		}
 		force_download($namaFileDownload, $data);
-        
+
 	}
 	// http://localhost:55/04.Project/ESDM/s1m0l3g/index.php/kegiatan/downloadFile/10/1542535338_r5mu481Ta7.jpg
 }

@@ -15,7 +15,6 @@ class Database extends CI_Controller {
 
 
 	public function index(){
-
 		$data = array(
 			'title' => 'Database Monitoring Pemrakarsa' ,
 			'page'	=> 'master/database',

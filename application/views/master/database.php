@@ -48,7 +48,7 @@
                 	<div class="col-sm-3">
                 		<div class="panel panel-success">
                 			<div class="panel-heading">
-                				<?php if ($units->id_unit == 5) {
+                				<?php if ($units->id_unit == 9) {
                 					?>
                 					<a data-toggle="modal" href='#modal-id'><img src="<?php echo $units->url_img; ?>"></a>
                 					<?php 

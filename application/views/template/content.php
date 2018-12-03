@@ -38,7 +38,7 @@
 
                 <p>
                   <?php echo @$this->session->userdata('name');?>
-                  <small>Bagian : <?php echo @$this->session->userdata('sub_sector');?></small>
+                  <small>Bagian : <?php echo @$this->session->userdata('nama_unit');?></small>
                 </p>
               </li>
               <!-- Menu Body --> 

@@ -9,7 +9,7 @@ class Auth_model extends CI_Model {
 		$username = $parameter['username'];
 		$password = sha1($parameter['password']); // encrypt type sha1
 
-		$get_user = $this->db->select('*')->from('login')->where('username',$username)->where('password',$password)->get()->row_array();
+		$get_user = $this->db->select('unit.nama_unit, login.*')->from('login')->where('username',$username)->join('unit','login.sub_sector = unit.id_unit')->where('password',$password)->get()->row_array();
 
 		if (isset($get_user['username'])) {
 			/*add login data*/
@@ -21,7 +21,8 @@ class Auth_model extends CI_Model {
 				'login_access_id'	=> $get_user['login_access_id'],
 				'name'	=> $get_user['name'],
 				'id_flow'	=> $get_user['id_flow'],
-				'sub_sector'	=> $get_user['sub_sector']
+				'sub_sector'	=> $get_user['sub_sector'],
+				'nama_unit'		=> $get_user['nama_unit']
 			); 
 			$this->session->set_userdata( $array );
 			/*end*/
