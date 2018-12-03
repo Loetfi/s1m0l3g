@@ -128,7 +128,12 @@
 								</select>
 							</div>
 						</div>
-						
+						<div class="form-group" id="txtRanah" style="display: none;">
+							<label for="url_ranah" class="col-sm-4 control-label">Url Ranah</label>
+							<div class="col-sm-8">
+								<input type="text" class="form-control" id="url_ranah" placeholder="url_ranah">
+							</div>
+						</div>
 					</div>
 					<!-- /.box-body -->
 					<div class="box-footer">

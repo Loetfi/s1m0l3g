@@ -223,6 +223,8 @@ class Kegiatan extends CI_Controller {
 		$data['detail'] = $this->keg->detail($idKeg, $idUnit);
 		if (!$data['detail'])
 			redirect('kegiatan/listing/'.$idUnit,'refresh');
+		if ($data['detail']['status'] == 'Selesai')
+			redirect('kegiatan/detail/'.$idUnit.'/'.$idKeg,'refresh');
 		
 		$data['logTarget'] = $this->keg->logTarget($idKeg);
 		
@@ -243,6 +245,7 @@ class Kegiatan extends CI_Controller {
 		$lokasi = @$_POST['lokasi'];
 		$tanggal = @$_POST['tanggal'];
 		$waktu = @$_POST['waktu'];
+		$status = @$_POST['status'];
 		$YmdHis = date('Y-m-d H:i:s', strtotime($tanggal.' '.$waktu));
 		
 		$namaFolder = 'Kegiatan_'.$id_keg;
@@ -301,7 +304,7 @@ class Kegiatan extends CI_Controller {
 			'hasil_kegiatan' => $hasil_kegiatan,
 			'file_pendukung' => $file_pendukung,
 			'file_asli' => $file_nameasli,
-			'status' => 'Done',
+			'status' => $status,
 			'cdate' => $cdate,
 		);
 		if($this->keg->insertKegiatanLog($dataInsert)) {
@@ -342,6 +345,9 @@ class Kegiatan extends CI_Controller {
 		$data['detail'] = $this->keg->detail($idKeg, $idUnit);
 		if (!$data['detail'])
 			redirect('kegiatan/listing/'.$idUnit,'refresh');
+		if ($data['detail']['status'] == 'Selesai')
+			redirect('kegiatan/detail/'.$idUnit.'/'.$idKeg,'refresh');
+		
 		$data['logTarget'] = $this->keg->logTarget($idKeg);
 		
 		$this->breadcrumbs->push('Daftar Regulasi', 'kegiatan/listing/'.$idUnit);
@@ -358,6 +364,7 @@ class Kegiatan extends CI_Controller {
 		$nama_keg = $_POST['nama_keg'];
 		$status = $_POST['status'];
 		$abstraksi = $_POST['abstraksi'];
+		$url_ranah = $_POST['url_ranah'];
 		$mdate = time();
 		
 		$arrUpdate = array(
@@ -366,7 +373,8 @@ class Kegiatan extends CI_Controller {
 			'abstraksi' => $abstraksi,
 			'mdate' => $mdate
 		);
-		
+		if ($status == 'Selesai')
+			$arrUpdate['url_ranah'] = $url_ranah;
 		$this->keg->editKegiatan($arrUpdate, array('id_keg' => $id_keg));
 		
 		$data = array(

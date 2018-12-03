@@ -57,7 +57,14 @@ $(function(){
 		nama_keg = $('#nama_keg').val();
 		status = $('#status').val();
 		abstraksi = $('#abstraksi').val();
-		
+		url_ranah = $('#url_ranah').val();
+		if(status == 'Selesai'){
+			if(url_ranah == ''){
+				alert('Masukan Url JDIH');
+				$('#url_ranah').focus();
+				return false;
+			}
+		}
 		$.ajax({
 			dataType: "json",
 			type: "POST",
@@ -67,6 +74,7 @@ $(function(){
 				nama_keg: nama_keg,
 				status: status,
 				abstraksi: abstraksi,
+				url_ranah: url_ranah,
 				'<?php echo $this->security->get_csrf_token_name(); ?>' : '<?php echo $this->security->get_csrf_hash(); ?>'
 			},
 			success: function(data){
@@ -127,6 +135,17 @@ $(function(){
 	$('#addFilePendukung').click(function(){
 		html = '<input type="file" name="uploadfile[]" class="form-control" placeholder="file_pendukung">';
 		$('#formBerkasPendukung').append(html);
+	});
+	
+	$('#status').change(function(){
+		thisVal = $(this).val();
+		if (thisVal == 'Selesai'){
+			$('#txtRanah').css('display','block');
+			$('#url_ranah').attr('required');
+		} else {
+			$('#txtRanah').css('display','none');
+			$('#url_ranah').removeAttr('required');
+		}
 	});
 });
 </script>

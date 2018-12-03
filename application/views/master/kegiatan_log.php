@@ -120,10 +120,10 @@
 									</div>
 								</div>
 								<div class="form-group">
-									<label for="file_pendukung" class="col-sm-4 control-label">Ffile Pendukung</label>
+									<label for="file_pendukung" class="col-sm-4 control-label">File Pendukung</label>
 									<div class="col-sm-8">
 										<div id="formBerkasPendukung">
-										<input type="file" name="uploadfile[]" class="form-control" placeholder="file_pendukung">
+										<input type="file" name="uploadfile[]" class="form-control" placeholder="file_pendukung" required>
 										</div>
 										<div>
 											<button type="button" class="btn btn-default btn-sm pull-right" id="addFilePendukung"><i class="fa fa-plus"></i> Tambah File Pendukung</button>
@@ -144,12 +144,12 @@
 									</thead>
 									<tbody>
 									<tr>
-										<td><input type="text" name="jabatan[]" class="form-control" placeholder="nama posisi"></td>
-										<td><input type="text" name="nama_peserta[]" class="form-control" placeholder="nama peserta"></td>
+										<td><input type="text" name="jabatan[]" class="form-control" placeholder="nama posisi" required></td>
+										<td><input type="text" name="nama_peserta[]" class="form-control" placeholder="nama peserta" required></td>
 									</tr>
 									<tr>
-										<td><input type="text" name="jabatan[]" class="form-control" placeholder="nama posisi"></td>
-										<td><input type="text" name="nama_peserta[]" class="form-control" placeholder="nama peserta"></td>
+										<td><input type="text" name="jabatan[]" class="form-control" placeholder="nama posisi" required></td>
+										<td><input type="text" name="nama_peserta[]" class="form-control" placeholder="nama peserta" required></td>
 									</tr>
 									</tbody>
 									<tfoot>

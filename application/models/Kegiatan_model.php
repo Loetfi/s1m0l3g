@@ -83,6 +83,7 @@ class Kegiatan_model extends CI_Model {
 			,k.cuser
 			,k.mdate
 			,k.muser
+			,url_ranah
 		FROM kegiatan k
 		LEFT JOIN unit u 
 			ON u.id_unit = k.id_unit

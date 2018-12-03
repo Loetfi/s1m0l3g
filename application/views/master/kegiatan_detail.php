@@ -57,6 +57,10 @@
 							<td><?php echo @$detail['status']; ?></td>
 						</tr>
 						<tr>
+							<th>URL JDIH</th>
+							<td><?php echo @$detail['url_ranah']; ?></td>
+						</tr>
+						<tr>
 							<th>Tgl Input</th>
 							<td><?php echo date('d F Y H:i:s',@$detail['cdate']); ?></td>
 						</tr>
@@ -68,7 +72,7 @@
 						<tr>
 							<th></th>
 							<td>
-								<?php if ($access_edit) { ?>
+								<?php if ($access_edit && $detail['status'] != 'Selesai') { ?>
 								<a href="<?php echo site_url('kegiatan/edit/'.$detail['id_unit'].'/'.$detail['id_keg']); ?>" class="btn btn-warning" title="Edit"><i class="fa fa-pencil"></i> Edit</a>
 								<a href="<?php echo site_url('kegiatan/addlog/'.$detail['id_unit'].'/'.$detail['id_keg']); ?>" class="btn btn-success" title="Tambah Log"><i class="fa fa-plus"></i> Tambah Kegiatan</a>
 								<?php } ?>
