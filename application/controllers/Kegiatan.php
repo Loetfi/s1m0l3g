@@ -147,7 +147,7 @@ class Kegiatan extends CI_Controller {
 	}
 	
 	function detail($idUnit = null , $idKeg = null){
-		$idUnit = $idUnit > 0 or $idKeg > 0 ? true : redirect('database','refresh');
+		$thisValidation = $idUnit > 0 or $idKeg > 0 ? true : redirect('database','refresh');
 		
 		$data = array(
 			'title' => 'Detail Master Regulasi' ,
@@ -227,6 +227,8 @@ class Kegiatan extends CI_Controller {
 	}
 	
 	function addLog($idUnit, $idKeg){
+		$thisValidation = $idUnit > 0 or $idKeg > 0 ? true : redirect('database','refresh');
+		
 		$detailUnit = $this->front_model->detail_unit($idUnit);
 		$data = array(
 			'title' => 'Tambah Kegiatan Regulasi '.@$detailUnit['nama_unit'] ,
@@ -350,6 +352,8 @@ class Kegiatan extends CI_Controller {
 	}
 	
 	function edit($idUnit, $idKeg){
+		$thisValidation = $idUnit > 0 or $idKeg > 0 ? true : redirect('database','refresh');
+		
 		if (!$this->session->userdata('username'))
 			redirect(site_url('kegiatan/listing/'.$idUnit));
 		
