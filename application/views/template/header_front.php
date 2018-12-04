@@ -126,7 +126,7 @@
               <div class="col-sm-3">
                 <div class="panel panel-success">
                   <div class="panel-heading">
-                    <a href="#"><img src="<?php echo $units->url_img; ?>"></a>
+                    <a href="#"><img src="<?php echo $units->url_img; ?>" width="80px" height="80px"></a>
                     <br><br>
                     <h3 class="panel-title"><?php echo $units->nama_unit; ?></h3>
                     <?php if ($units->id_unit == 5) { echo '';  } else { echo ''; } ?>
