@@ -64,70 +64,70 @@
 				</div>
 				<!-- /.box-header -->
 				
-				<form action="<?php echo site_url('kegiatan/addLogProcess/'.@$idUnit); ?>" method="POST" id="addLogKegiatanForm" class="form-horizontal" enctype="multipart/form-data" target="_blank">
+				<form action="<?php echo site_url('kegiatan/addLogProcess/'.@$idUnit); ?>" method="POST" id="addLogKegiatanForm" enctype="multipart/form-data">
 					<input type="hidden" name="id_keg" id="id_keg" value="<?php echo @$detail['id_keg']; ?>">
 					<input type="hidden" name="<?php echo $this->security->get_csrf_token_name(); ?>" value="<?php echo $this->security->get_csrf_hash(); ?>" />
 					<div class="box-body">
 						<div class="row">
 							<div class="col-sm-6">
 								<div class="form-group">
-									<label for="judul_kegiatan" class="col-sm-4 control-label">Judul Kegiatan</label>
-									<div class="col-sm-8">
+									<label for="judul_kegiatan" class="control-label">Judul Kegiatan</label>
 										<textarea name="judul_kegiatan" class="form-control" id="judul_kegiatan" placeholder="Judul Kegiatan" required></textarea>
+									<div class="col-sm-8">
 									</div>
 								</div>
 								<div class="form-group">
-									<label for="hasil_kegiatan" class="col-sm-4 control-label">Hasil Kegiatan</label>
-									<div class="col-sm-8">
+									<label for="hasil_kegiatan" class="control-label">Hasil Kegiatan</label>
 										<textarea name="hasil_kegiatan" class="form-control" id="hasil_kegiatan" placeholder="Hasil Kegiatan" required></textarea>
+									<div class="col-sm-8">
 									</div>
 								</div>
 								<div class="form-group">
-									<label for="tanggal" class="col-sm-4 control-label">Tanggal</label>
-									<div class="col-sm-8">
+									<label for="tanggal" class="control-label">Tanggal</label>
 										<div class="input-group date">
 											<div class="input-group-addon">
 												<i class="fa fa-calendar"></i>
 											</div>
 											<input type="text" name="tanggal" class="form-control pull-right" id="datepicker">
 										</div>
+									<div class="col-sm-8">
 									</div>
 								</div>
 								<div class="form-group">
-									<label for="tanggal" class="col-sm-4 control-label">Waktu</label>
-									<div class="col-sm-8">
+									<label for="tanggal" class="control-label">Waktu</label>
 										<div class="input-group date">
 											<div class="input-group-addon">
 												<i class="fa fa-clock-o"></i>
 											</div>
 											<input type="text" name="waktu" class="form-control" id="timepicker">
 										</div>
+									<div class="col-sm-8">
 									</div>
 								</div>
 								<div class="form-group">
-									<label for="lokasi" class="col-sm-4 control-label">Lokasi</label>
-									<div class="col-sm-8">
+									<label for="lokasi" class="control-label">Lokasi</label>
 										<input type="text" name="lokasi" class="form-control" id="lokasi" placeholder="lokasi" required>
+									<div class="col-sm-8">
 									</div>
 								</div>
 								<div class="form-group">
-									<label for="status" class="col-sm-4 control-label">Status Kegiatan</label>
-									<div class="col-sm-8">
+									<label for="status" class="control-label">Status Kegiatan</label>
 										<select name="status" class="form-control" id="status" placeholder="status" required>
 											<option value="Aktif">Aktif</option>
 											<option value="Selesai">Selesai</option>
 										</select>
+									<div class="col-sm-8">
 									</div>
 								</div>
 								<div class="form-group">
-									<label for="file_pendukung" class="col-sm-4 control-label">File Pendukung</label>
-									<div class="col-sm-8">
+									<label for="file_pendukung" class="control-label">File Pendukung</label>
 										<div id="formBerkasPendukung">
 										<input type="file" name="uploadfile[]" class="form-control" placeholder="file_pendukung" required>
 										</div>
 										<div>
 											<button type="button" class="btn btn-default btn-sm pull-right" id="addFilePendukung"><i class="fa fa-plus"></i> Tambah File Pendukung</button>
 										</div>
+									<div class="col-sm-8">
 									</div>
 								</div>
 							</div>
@@ -178,3 +178,8 @@
 	</div>
 </section>
 <?php $this->load->view('master/kegiatan_script'); ?>
+<script>
+$(function(){
+	CKEDITOR.replace('hasil_kegiatan');
+});
+</script>

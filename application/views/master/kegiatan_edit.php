@@ -101,38 +101,34 @@
 				</div>
 				<!-- /.box-header -->
 				
-				<form action="#<?php echo site_url('kegiatan/editProcess'); ?>" method="POST" id="editKegiatanForm" class="form-horizontal" enctype="multipart/form-data" target="_blank">
+				<form action="<?php echo site_url('kegiatan/editProcess'); ?>" method="POST" id="editKegiatanForm" class="" enctype="multipart/form-data">
 					<div class="box-body">
 						<div class="form-group">
-							<label for="nama_keg" class="col-sm-4 control-label">Nama</label>
-							<div class="col-sm-8">
-								<input type="text" class="form-control" id="nama_keg" placeholder="Nama" value="<?php echo @$detail['nama_keg']; ?>" required>
-							</div>
+							<label for="nama_keg" class="control-label">Nama Regulasi</label>
+							<input type="text" class="form-control" id="nama_keg" placeholder="Nama Regulasi" value="<?php echo @$detail['nama_keg']; ?>" required>
+							
 						</div>
 						
 						<div class="form-group">
-							<label for="abstraksi" class="col-sm-4 control-label">Abstraksi</label>
-							<div class="col-sm-8">
-								<textarea class="form-control" id="abstraksi" placeholder="abstraksi" required><?php echo @$detail['abstraksi']; ?></textarea>
-							</div>
+							<label for="abstraksi" class="control-label">Abstraksi</label>
+							<textarea class="form-control" id="abstraksi" placeholder="abstraksi" required><?php echo @$detail['abstraksi']; ?></textarea>
+							
 						</div>
 						
 						<div class="form-group">
-							<label for="status" class="col-sm-4 control-label">Status</label>
-							<div class="col-sm-8">
-								<select name="status" class="form-control" id="status" placeholder="status" required>
-									<option value="">-Pilih-</option>
-									<option value="Aktif" <?php echo @$detail['status'] == 'Aktif' ? 'Selected' : ''; ?>>Aktif</option>
-									<option value="Pasif" <?php echo @$detail['status'] == 'Pasif' ? 'Selected' : ''; ?>>Pasif</option>
-									<option value="Selesai" <?php echo @$detail['status'] == 'Selesai' ? 'Selected' : ''; ?>>Selesai</option>
-								</select>
-							</div>
+							<label for="status" class="control-label">Status</label>
+							<select name="status" class="form-control" id="status" placeholder="status" required>
+								<option value="">-Pilih-</option>
+								<option value="Aktif" <?php echo @$detail['status'] == 'Aktif' ? 'Selected' : ''; ?>>Aktif</option>
+								<option value="Pasif" <?php echo @$detail['status'] == 'Pasif' ? 'Selected' : ''; ?>>Pasif</option>
+								<option value="Selesai" <?php echo @$detail['status'] == 'Selesai' ? 'Selected' : ''; ?>>Selesai</option>
+							</select>
+							
 						</div>
 						<div class="form-group" id="txtRanah" style="display: none;">
-							<label for="url_ranah" class="col-sm-4 control-label">Url Ranah</label>
-							<div class="col-sm-8">
-								<input type="text" class="form-control" id="url_ranah" placeholder="url_ranah">
-							</div>
+							<label for="url_ranah" class="control-label">Url Ranah</label>
+							<input type="text" class="form-control" id="url_ranah" placeholder="url_ranah">
+							
 						</div>
 					</div>
 					<!-- /.box-body -->
@@ -203,3 +199,8 @@
 	</div>
 </section>
 <?php $this->load->view('master/kegiatan_script'); ?>
+<script>
+$(function(){
+	CKEDITOR.replace('abstraksi');
+});
+</script>

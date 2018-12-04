@@ -25,7 +25,7 @@
 						<div class="form-group">
 							<label for="nama_keg" class="col-sm-2 control-label">Nama Regulasi</label>
 							<div class="col-sm-10">
-								<input type="text" class="form-control" id="nama_keg" placeholder="nama_keg" required>
+								<input type="text" class="form-control" id="nama_keg" required>
 							</div>
 						</div>
 						
@@ -47,9 +47,9 @@
 							</div>
 						</div>
 						<div class="form-group">
-							<label for="abstraksi" class="col-sm-2 control-label">abstraksi</label>
+							<label for="abstraksi" class="col-sm-2 control-label">Abstraksi</label>
 							<div class="col-sm-10">
-								<textarea class="form-control" id="abstraksi" placeholder="abstraksi" required></textarea>
+								<textarea class="form-control" id="abstraksi" required></textarea>
 							</div>
 						</div>
 						
@@ -69,3 +69,8 @@
 	</div>
 </section>
 <?php $this->load->view('master/kegiatan_script'); ?>
+<script>
+$(function(){
+	CKEDITOR.replace('abstraksi');
+});
+</script>

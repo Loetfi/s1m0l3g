@@ -1,4 +1,5 @@
 <script src="<?php echo base_url('assets'); ?>/bower_components/fastclick/lib/fastclick.js"></script>
+<script src="<?php echo base_url('assets'); ?>/bower_components/ckeditor/ckeditor.js"></script>
 <script>
 $(function(){
 	$('#thisDataTable').DataTable({
@@ -147,5 +148,6 @@ $(function(){
 			$('#url_ranah').removeAttr('required');
 		}
 	});
+	
 });
 </script>
