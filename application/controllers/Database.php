@@ -19,6 +19,7 @@ class Database extends CI_Controller {
 			'title' => 'Database Monitoring Pemrakarsa' ,
 			'page'	=> 'master/database',
 			'unit'	=> $this->front_model->get_all_unit(),
+			'parent' => $this->front_model->get_parent(9)
 			//'sesi'	=> $this->session->all_userdata() ? $this->session->all_userdata() : array()
 		);
 		

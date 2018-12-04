@@ -74,7 +74,7 @@
           <center>
           <h1>Tentang Simoleg</h1>
           <hr>
-          <p class="text-muted" style="font-size: 17px">Simoleg merupakan Sistem Monitoring Legislasi yang dikembangkan oleh Biro Hukum Kementerian Energi dan Sumber Daya Mineral sebagai fasilitas untuk melihat perjalanan kegiatan.
+          <p class="text-muted" style="font-size: 17px">Suatu sistem monitoring penyelesaian pembentukan peraturan perundang-undangan yang dimulai sejak perencanaan, penyusunan, pembahasan, pengesahan, dan penetapan peraturan perundang-undangan sektor energi dan sumber daya mineral melalui penggunaan teknologi informasi dan komunikasi.
             </p>
           </center>
         </div>

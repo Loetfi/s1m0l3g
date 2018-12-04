@@ -21,6 +21,16 @@ class Front_model extends CI_Model {
 		}
 	}	
 
+	public function get_parent($id_parent = null)
+	{
+		try {
+			return $this->db->query("SELECT * from unit where is_parent = $id_parent and status = 1 order by position asc")->result();
+		} catch (Exception $e) {
+			return $this->db->_error_message();
+		}
+		
+	}
+
 }
 
 /* End of file Front_model.php */

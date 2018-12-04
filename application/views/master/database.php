@@ -52,7 +52,7 @@
                 					?>
                 					<a data-toggle="modal" href='#modal-id'><img src="<?php echo $units->url_img; ?>" width="80px" height="80px"></a>
                 					<?php 
-                				} else {?>
+                				} else { ?>
                 					<a href="<?php echo site_url('kegiatan/listing/'.$units->id_unit) ?>"><img src="<?php echo $units->url_img; ?>" width="80px" height="80px"></a>
                 				<?php } ?>
                 				<br><br>
@@ -80,40 +80,28 @@
     				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
     				<h4 class="modal-title">Inspektorat Jendral</h4>
     			</div>
-    			<div class="modal-body">
-    				<!-- <div class="col-sm-6"> -->
+    			<div class="modal-body"> 
 
-    					<div class="panel panel-success">
-    						<div class="panel-heading">
-    							<a data-toggle="modal" href='#modal-id'><img src="https://www.esdm.go.id/assets/imagecache/mediaList/xItjen.png.pagespeed.ic.Q8VtQCEB1S.png"></a>
-    							<br><br>
-    							<h3 class="panel-title">Inspektorat Jendral</h3>
-    						</div> 
-    					</div>
+                    <div class="col-sm-12">
+                        <?php foreach ($parent as $parents) { ?>
+                            <div class="col-sm-4">
+                                <div class="panel panel-info">
+                                    <div class="panel-heading">
+                                        <br><br>
+                                        <center><a href="<?php echo site_url('kegiatan/listing/'.$parents->id_unit) ?>"><h3 class="panel-title"><?php echo $parents->nama_unit; ?></h3></a></center>
+                                        <br><br>
+                                    </div> 
+                                </div>
+                            </div> 
+                        <?php } ?>
+                    </div> 
 
-    					<div class="panel panel-success">
-    						<div class="panel-heading">
-    							<a data-toggle="modal" href='#modal-id'><img src="https://www.esdm.go.id/assets/imagecache/mediaList/xItjen.png.pagespeed.ic.Q8VtQCEB1S.png"></a>
-    							<br><br>
-    							<h3 class="panel-title">Inspektorat Jendral</h3>
-    						</div> 
-    					</div>
-
-    					<div class="panel panel-success">
-    						<div class="panel-heading">
-    							<a data-toggle="modal" href='#modal-id'><img src="https://www.esdm.go.id/assets/imagecache/mediaList/xItjen.png.pagespeed.ic.Q8VtQCEB1S.png"></a>
-    							<br><br>
-    							<h3 class="panel-title">Inspektorat Jendral</h3>
-    						</div> 
-    					</div>
-    				<!-- </div> -->
-
-    			</div>
-    			<div class="modal-footer">
-    				<button type="button" class="btn btn-default" data-dismiss="modal">Tutup</button>
-    			</div>
-    		</div>
-    	</div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Tutup</button>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 </section>
