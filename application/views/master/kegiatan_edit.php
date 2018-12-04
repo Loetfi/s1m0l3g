@@ -23,7 +23,7 @@
 					<input type="hidden" name="id_keg" id="id_keg" value="<?php echo @$detail['id_keg']; ?>">
 					<table class="table table-bordered">
 						<tr>
-							<th width="200px">Nama</th>
+							<th width="200px">Nama Regulasi</th>
 							<td><?php echo @$detail['nama_keg']; ?></td>
 						</tr>
 						<tr>
