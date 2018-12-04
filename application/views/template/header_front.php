@@ -30,13 +30,13 @@
 </head>
 <!-- ADD THE CLASS layout-top-nav TO REMOVE THE SIDEBAR. -->
 <body class="hold-transition skin-green layout-top-nav">
-  <div class="wrapper">
+  <!-- <div class="wrapper"> -->
 
     <header class="main-header">
       <nav class="navbar navbar-static-top">
         <div class="container">
           <div class="navbar-header">
-            <a href="<?php echo base_url('assets/index2.html');?>" class="navbar-brand"><b>SIMOLEG KESDM</b></a>
+            <a href="<?php echo base_url('assets/index2.html');?>" class="navbar-brand"><b>&nbsp;&nbsp;&nbsp;&nbsp;SIMOLEG KESDM</b></a>
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse">
               <i class="fa fa-bars"></i>
             </button>
@@ -63,20 +63,21 @@
   </header>
   <!-- Full Width Column -->
   <div class="content-wrapper">
-    <div class="container">
+    <div class="row">
       <!-- Content Header (Page header) -->
-      <section class="content-header"> 
-      </section>
+      <!-- <section class="content-header"> 
+      </section> -->
 
       <!-- Main content -->
-      <section class="content">  
+      <section class="content"> 
+      <div class="container"> 
         <div class="col-sm-8">
-          <center>
+          <!-- <center> -->
           <h1>Tentang Simoleg</h1>
+          <!-- </center> -->
           <hr>
-          <p class="text-muted" style="font-size: 17px">Suatu sistem monitoring penyelesaian pembentukan peraturan perundang-undangan yang dimulai sejak perencanaan, penyusunan, pembahasan, pengesahan, dan penetapan peraturan perundang-undangan sektor energi dan sumber daya mineral melalui penggunaan teknologi informasi dan komunikasi.
+          <p class="text-muted text-justify" style="font-size: 17px">Suatu sistem monitoring penyelesaian pembentukan peraturan perundang-undangan yang dimulai sejak perencanaan, penyusunan, pembahasan, pengesahan, dan penetapan peraturan perundang-undangan sektor energi dan sumber daya mineral melalui penggunaan teknologi informasi dan komunikasi.
             </p>
-          </center>
         </div>
         <div class="col-sm-4">
           <form action="<?php echo site_url('auth/proses') ?>" method="post">
@@ -104,6 +105,7 @@
           </form>
           
         </div>
+        </div> 
         <hr>
       </section>
       <!-- /.content -->
