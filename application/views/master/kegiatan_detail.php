@@ -148,7 +148,11 @@
 
 						<div class="timeline-body"><?php echo $row['hasil_kegiatan']; ?></div>
 						<div class="timeline-footer">
+
+							<?php if ($this->session->userdata('id_flow')==1) {?>
+							
 							<a href="<?php echo site_url('kegiatan/editlog/'.$idUnit.'/'.$idKeg.'/'.$row['id_log']) ?>" class="btn btn-success btn-xs"><i class="fa fa-pencil"></i> Edit</a>
+							<?php } ?>
 							<?php if ($row['file']) foreach($row['file'] as $rowFile){ ?>
 							<a href="<?php echo site_url('kegiatan/downloadFile/'.@$detail['id_keg'].'/'.$row['id_log'].'/'.$rowFile['namaFile']); ?>" class="btn btn-info btn-xs">
 								<i class="fa fa-cloud-download"></i> <?php echo $rowFile['namaFileAsli']; ?>
