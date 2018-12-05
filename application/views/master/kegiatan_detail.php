@@ -139,13 +139,16 @@
 				<li>
 					<i class="fa fa-envelope bg-blue"></i>
 					<div class="timeline-item">
+
 						<span class="time"><i class="fa fa-clock-o"></i> <?php echo $row['waktu']; ?></span>
 						<span class="time"><i class="fa fa-map-marker"></i> <?php echo $row['lokasi']; ?></span>
 
 						<h3 class="timeline-header"><a href="#"><?php echo $row['judul_kegiatan']; ?></a></h3>
 
+
 						<div class="timeline-body"><?php echo $row['hasil_kegiatan']; ?></div>
 						<div class="timeline-footer">
+							<a href="<?php echo site_url('kegiatan/editlog/'.$idUnit.'/'.$idKeg.'/'.$row['id_log']) ?>" class="btn btn-success btn-xs"><i class="fa fa-pencil"></i> Edit</a>
 							<?php if ($row['file']) foreach($row['file'] as $rowFile){ ?>
 							<a href="<?php echo site_url('kegiatan/downloadFile/'.@$detail['id_keg'].'/'.$row['id_log'].'/'.$rowFile['namaFile']); ?>" class="btn btn-info btn-xs">
 								<i class="fa fa-cloud-download"></i> <?php echo $rowFile['namaFileAsli']; ?>
@@ -171,6 +174,7 @@
 				foreach($allLogKegiatanAccordion as $row){ ?>
 			<div class="box collapsed-box accrKegiatan">
 				<div class="box-header">
+
 					<h3 class="box-title" data-widget="collapse"><b><?php echo $row['judul_kegiatan']; ?></b></h3>
 					<div class="box-tools pull-right">
 						<span class="time"><i class="fa fa-map-marker"></i> <?php echo $row['lokasi']; ?>&nbsp;&nbsp;&nbsp;</span>

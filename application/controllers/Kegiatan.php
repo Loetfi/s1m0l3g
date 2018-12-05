@@ -146,15 +146,17 @@ class Kegiatan extends CI_Controller {
 		echo json_encode($data);
 	}
 	
-	function detail($idUnit = null , $idKeg = null){
-		$thisValidation = $idUnit > 0 or $idKeg > 0 ? true : redirect('database','refresh');
+	function detail($idUnit = null , $idKeg = null , $idLog = null){
+		$thisValidation = $idUnit > 0 or $idKeg > 0 or $idLog > 0 ? true : redirect('database','refresh');
 		
 		$data = array(
 			'title' => 'Detail Master Regulasi' ,
 			'page'	=> 'master/kegiatan_detail' ,
 			'idUnit'=> $idUnit,
 			'backUrl'=> 'kegiatan/listing/'.$idUnit,
-			'access_edit' => role_access(@$this->session->userdata('id_flow'), @$idUnit)
+			'access_edit' => role_access(@$this->session->userdata('id_flow'), @$idUnit),
+			'idKeg'	=> $idKeg,
+			'idLog'	=> $idLog
 		);
 		$data['detail'] = $this->keg->detail($idKeg, $idUnit);
 		if (!$data['detail'])
@@ -198,6 +200,7 @@ class Kegiatan extends CI_Controller {
 			
 			$idxLog++;
 		}
+		$data['access_admin'] = @$this->session->flashdata('id_flow');
 		$data['allLogKegiatan'] = @$allLogKegiatan;
 		$data['allLogKegiatanTimeline'] = @$allLogKegiatanTimeline;
 		$data['allLogKegiatanAccordion'] = @$allLogKegiatanAccordion;
@@ -226,6 +229,138 @@ class Kegiatan extends CI_Controller {
 		$this->load->view('template/footer', $data, FALSE);
 	}
 	
+	function editLog($idUnit, $idKeg,$idLog){
+		$thisValidation = $idUnit > 0 or $idKeg > 0 ? true : redirect('database','refresh');
+		
+		$detailUnit = $this->front_model->detail_unit($idUnit);
+		$data = array(
+			'title' => 'Edit Kegiatan Regulasi '.@$detailUnit['nama_unit'] ,
+			'page'	=> 'master/edit_kegiatan_log',
+			'editdata'	=> $this->keg->editkegiatan_log($idLog),
+			'getanggotalog' => $this->keg->get_log_kegiatan_anggota($idLog),
+			'idUnit'=> $idUnit,
+			'idKeg'=> $idKeg,
+			'idLog'=> $idLog,
+			'backUrl'=> 'kegiatan/detail/'.$idUnit.'/'.$idKeg
+		);
+		
+		$data['detail'] = $this->keg->detail($idKeg, $idUnit);
+		if (!$data['detail'])
+			redirect('kegiatan/listing/'.$idUnit,'refresh');
+		if ($data['detail']['status'] == 'Selesai')
+			redirect('kegiatan/detail/'.$idUnit.'/'.$idKeg,'refresh');
+		
+		$data['logTarget'] = $this->keg->logTarget($idKeg);
+		
+		$this->breadcrumbs->push('Daftar Regulasi', 'kegiatan/listing/'.$idUnit);
+		$this->breadcrumbs->push('Detail Regulasi', 'kegiatan/detail/'.$idUnit.'/'.$idKeg);
+		$this->breadcrumbs->push('Tambah Kegiatan', '#');
+		
+		$this->load->view('template/header', $data, FALSE);
+		$this->load->view('template/content', $data, FALSE);
+		$this->load->view('template/footer', $data, FALSE);
+	}
+
+	public function editLogProcess($idUnit, $idKeg,$idLog)
+	{
+		// print_r($_POST); 
+		$thisValidation = $idUnit > 0 or $idKeg > 0 or $idLog > 0 ? true : redirect('database','refresh');
+		
+		$cdate = time();
+		
+		
+		$id_keg = @$_POST['id_keg'];
+		$judul_kegiatan = @$_POST['judul_kegiatan'];
+		$hasil_kegiatan = @$_POST['hasil_kegiatan'];
+		$lokasi = @$_POST['lokasi'];
+		$tanggal = @$_POST['tanggal'];
+		$waktu = @$_POST['waktu'];
+		$status = @$_POST['status'];
+		$YmdHis = date('Y-m-d H:i:s', strtotime($tanggal.' '.$waktu));
+		
+		$namaFolder = 'Kegiatan_'.$id_keg;
+		
+		## UNTUK UPLOAD FILE 
+		// $config = array();
+		// $config['upload_path'] = './uploads/'.$namaFolder;
+		// $config['allowed_types'] = '*';
+		// $config['max_size']      = '0';
+		// $config['overwrite']     = true;
+		
+		// $files = $_FILES;
+		// for($i=0; $i < count($files['uploadfile']['name']); $i++){
+		// 	if ($files['uploadfile']['error'][$i] == 0){
+		// 		$_FILES['userfile']['name']= $files['uploadfile']['name'][$i];
+		// 		$_FILES['userfile']['type']= $files['uploadfile']['type'][$i];
+		// 		$_FILES['userfile']['tmp_name']= $files['uploadfile']['tmp_name'][$i];
+		// 		$_FILES['userfile']['error']= $files['uploadfile']['error'][$i];
+		// 		$_FILES['userfile']['size']= $files['uploadfile']['size'][$i];
+				
+		// 		$ext = pathinfo($_FILES['userfile']['name'], PATHINFO_EXTENSION);
+		// 		$cekPhoto = $_FILES['userfile']['tmp_name'];
+				
+		// 		## random text
+		// 		$seed = str_split('abcdefghijklmnopqrstuvwxyz'
+		// 			.'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+		// 		 .'0123456789'); // and any other characters
+		// 		shuffle($seed);
+		// 		$rand = '';
+		// 		foreach (array_rand($seed, 10) as $k){
+		// 			$rand .= $seed[$k];
+		// 		}
+		// 		$file_name= $cdate.'_'.$rand;
+		// 		$config['file_name'] = $file_name;
+		// 		$uploadFileName = $config['file_name'].".".$ext;
+		// 		$this->load->library('upload', $config);
+				
+		// 		$this->upload->initialize($config);
+		// 		if (!$this->upload->do_upload()){
+		// 			$salah = $this->upload->display_errors();
+		// 			print_r($salah);
+		// 		} else {
+		// 			@$file_pendukung .= $uploadFileName.';';
+		// 			@$file_nameasli .= $_FILES['userfile']['name'].';';
+		// 		}
+		// 	}
+		// }
+
+		$asd = '';
+		$dataInsert = array(
+			'id_keg' => $id_keg,
+			'tanggal' => $YmdHis,
+			'lokasi' => $lokasi,
+			'judul_kegiatan' => $judul_kegiatan,
+			'hasil_kegiatan' => $hasil_kegiatan,
+			'status' => $status,
+			'mdate' => $cdate,
+		);
+		// print_r($dataInsert);
+		if($this->keg->updateKegiatanLog($dataInsert,$idLog)) {
+			
+		// 	// insert anggota
+		// 	$id_log = $this->db->insert_id();
+		// 	$nama_peserta = @$_POST['nama_peserta'];
+		// 	$jabatan = @$_POST['jabatan'];
+		// 	for($i=0; $i<count($nama_peserta); $i++){
+		// 		$kegiatan_anggota = array(
+		// 			'id_log' => $id_log,
+		// 			'nama_peserta' => @$nama_peserta[$i],
+		// 			'jabatan' => @$jabatan[$i],
+		// 			'status' => 'Done',
+		// 			'cdate' => $cdate,
+		// 		);
+		// 		if ($nama_peserta[$i] != '' && $jabatan[$i] != '')
+		// 			$this->keg->insertKegiatanAnggota($kegiatan_anggota);
+		// 	}
+			
+			// update kegiatan
+			$this->db->update('kegiatan', array('mdate' => $cdate), array('id_keg' => $id_keg));
+		}
+		
+		redirect('kegiatan/detail/'.$idUnit.'/'.$id_keg,'refresh');
+	}
+
+
 	function addLog($idUnit, $idKeg){
 		$thisValidation = $idUnit > 0 or $idKeg > 0 ? true : redirect('database','refresh');
 		
